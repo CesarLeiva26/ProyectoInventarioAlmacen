@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head">
+<meta charset="UTF-8">
+</head>
+<body>
+	<script th:src="@{/js/web/producto/frmproducto.js}"
+		type="text/javascript"></script>
+	<nav th:insert="layout::menu"></nav>
+	<br>
+	<div align="center">
+	<button type="button" id="btnagregar" class="btn btn-dark fw-bolder">
+			<i class="fas fa-save"></i> Agregar Producto
+		</button>
+	<img src="../img/productos.png" width="200"> </div>
+	<div align="center">
+		
+	</div>
+	<hr/>
+	<table class="table table-dark table-striped" id="tblproducto">
+		<thead align="center">
+			<tr>
+				<th scope="col">Código</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Descripción</th>
+				<th scope="col">Pallet</th>
+				<th scope="col">Actualizar</th>
+				<th scope="col">Eliminar</th>
+			</tr>
+		</thead>
+		<tbody align="center" class="fw-bolder">
+			<tr th:each="producto :${listaproductos}">
+				<td th:text="${producto.idproducto}"></td>
+				<td th:text="${producto.nombre}"></td>
+				<td th:text="${producto.descripcion}"></td>
+				<td th:text="${producto.pallet.descripcion}"></td>
+				<td>
+					<button type="button" class="btn btn-success btnactualizarproducto"
+						th:data-idproducto="${producto.idproducto}"
+						th:data-nombre="${producto.nombre}"
+						th:data-descripcion="${producto.descripcion}"
+						th:data-idpallet="${producto.pallet.idpallet}">
+						<i class="fas fa-pencil-alt"></i>
+					</button>
+				</td>
+				<td>
+					<button type="button" class="btn btn-danger btneliminarproducto"
+						th:data-idproducto="${producto.idproducto}"
+						th:data-nombre="${producto.nombre}">
+						<i class="fas fa-trash-alt"></i>
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="modal fade" id="modalProducto" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">
+						Mantenimiento de Producto</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="txtnombre" class="form-label fw-bolder">
+							Nombre</label> <input type="text" class="form-control fw-bolder"
+							id="txtnombre">
+					</div>
+					<div class="mb-3">
+						<label for="txtdescripcion" class="form-label fw-bolder">
+							Descripción</label> <input type="text" class="form-control fw-bolder"
+							id="txtdescripcion">
+					</div>
+					<div class="mb-3">
+						<label for="cbopallet" class="form-label fw-bolder">
+							Pallet</label> <select class="form-control fw-bolder" id="cbopallet"></select>
+					</div>
+					<input type="hidden" id="hddidregistroproducto">
+				</div>
+				<div class="modal-footer d-flex justify-content-center">
+					<button type="button" class="btn btn-dark fw-bolder"
+						data-bs-dismiss="modal">Salir</button>
+					<button type="button" class="btn btn-danger fw-bolder"
+						id="btnguardar">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="modalEliminarProducto" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">
+						Eliminar Producto</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body fw-bolder">
+					<label id="mensajeeliminar"></label> <input type="hidden"
+						id="hddideliminarproducto" value="0">
+				</div>
+				<div class="modal-footer d-flex justify-content-center">
+					<button type="button"class="btn btn-dark fw-bolder"
+						data-bs-dismiss="modal">Salir</button>
+					<button type="button" class="btn btn-danger fw-bolder" id="btneliminar">Eliminar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

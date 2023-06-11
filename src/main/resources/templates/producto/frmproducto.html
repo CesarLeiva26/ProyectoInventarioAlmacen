@@ -41,7 +41,7 @@
 						th:data-descripcion="${producto.descripcion}"
 						th:data-envase="${producto.envase}"
 						th:data-peso="${producto.peso}"
-						th:data-idunidad="${producto.unidad.descripcion}">
+						th:data-idunidad="${producto.unidad.idunidad}">
 						<i class="fas fa-pencil-alt"></i>
 					</button>
 				</td>
@@ -87,7 +87,6 @@
 							Unidades</label> <select class="form-control fw-bolder" id="cbounidad"></select>
 					</div>
 					<input type="hidden" id="hddidregistroproducto">
-
 
 				</div>
 				<div class="modal-footer d-flex justify-content-center">

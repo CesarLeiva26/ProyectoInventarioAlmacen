@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Pallet;
+import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Unidad;
 import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Producto;
 import cibertec.edu.pe.ProyectoInventarioAlmacen.model.request.ProductoRequest;
 import cibertec.edu.pe.ProyectoInventarioAlmacen.model.response.ResultadoproductoResponse;
@@ -33,24 +33,25 @@ public class ProductoController {
 	@PostMapping("/registrarProducto")
 	@ResponseBody
 	public ResultadoproductoResponse registrarProducto(@RequestBody ProductoRequest productoRequest) {
-		String mensaje = "Registro de Producto Exitoso";
-		Boolean respuesta = true;
-		try {
-			Producto objproducto = new Producto();
+	    String mensaje = "Registro de Producto Exitoso";
+	    boolean respuesta = true;
+	    try {
+	    	Producto objproducto = new Producto();
 			if(productoRequest.getIdproducto() > 0) {
 				objproducto.setIdproducto(productoRequest.getIdproducto());
 			}
-			objproducto.setNombre(productoRequest.getNombre());
-			objproducto.setDescripcion(productoRequest.getDescripcion());
-			Pallet objPallet = new Pallet();
-			objPallet.setIdpallet(productoRequest.getIdpallet());
-			objproducto.setPallet(objPallet);
-			productoService.registrarProducto(objproducto);
-		} catch (Exception e) {
-			mensaje = "Registro de Producto sin Éxito";
-			respuesta = false;
-		}
-		return ResultadoproductoResponse.builder().mensaje(mensaje).respuesta(respuesta).build();
+	        objproducto.setDescripcion(productoRequest.getDescripcion());
+	        objproducto.setEnvase(productoRequest.getEnvase());
+	        objproducto.setPeso(productoRequest.getPeso());
+	        Unidad objUnidad = new Unidad();
+	        objUnidad.setIdunidad(productoRequest.getIdunidad());
+	        objproducto.setUnidad(objUnidad);
+	        productoService.registrarProducto(objproducto);
+	    } catch (Exception e) {
+	        mensaje = "Registro de Producto sin Éxito";
+	        respuesta = false;
+	    }
+	    return ResultadoproductoResponse.builder().mensaje(mensaje).respuesta(respuesta).build();
 	}
 	
 	@DeleteMapping("/eliminarProducto")

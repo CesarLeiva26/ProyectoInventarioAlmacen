@@ -6,7 +6,9 @@ import lombok.Data;
 public class ProductoRequest {
 
 	private Integer idproducto;
-	private String nombre;
 	private String descripcion;
-	private Integer idpallet;
+	private Integer idunidad;
+	private String envase;
+	private String peso;
+
 }

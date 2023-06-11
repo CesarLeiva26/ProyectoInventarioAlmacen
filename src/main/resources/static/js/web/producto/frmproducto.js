@@ -1,17 +1,20 @@
 $(document).on("click", "#btnagregar", function(){
-	$("#txtnombre").val("");
+	$("#txtcodigo").val("");
 	$("#txtdescripcion").val("");
+	$("#txtenvase").val("");
+	$("#txtpeso").val("");
 	$("#hddidregistroproducto").val("0");
-	$("#cbopallet").empty();
+
+ 	$("#cbounidad").empty();
 	$.ajax({
 		type: "GET",
-		url: "/pallet/listarPallets",
+		url: "/unidad/listarUnidades",
 		dataType: "json",
 		success: function(resultado){
 			if(resultado.length > 0){
 				$.each(resultado, function(index, value){
-					$("#cbopallet").append(
-							`<option value="${value.idpallet}">
+					$("#cbounidad").append(
+							`<option value="${value.idunidad}">
 								${value.descripcion}</option>`
 							);
 				})
@@ -22,24 +25,25 @@ $(document).on("click", "#btnagregar", function(){
 });
 
 $(document).on("click", ".btnactualizarproducto", function(){
-	$("#txtnombre").val($(this).attr("data-nombre"));
 	$("#txtdescripcion").val($(this).attr("data-descripcion"));
+	$("#txtenvase").val($(this).attr("data-envase"));
+	$("#txtpeso").val($(this).attr("data-peso"));
 	$("#hddidregistroproducto").val($(this).attr("data-idproducto"));
-	$("#cbopallet").empty();
-	var idpallet = $(this).attr("data-idpallet");
+	$("#cbounidad").empty();
+	var idunidad = $(this).attr("data-idunidad");
 	$.ajax({
 		type: "GET",
-		url: "/pallet/listarPallets",
+		url: "/unidad/listarUnidades",
 		dataType: "json",
 		success: function(resultado){
 			if(resultado.length > 0){
 				$.each(resultado, function(index, value){
-					$("#cbopallet").append(
-							`<option value="${value.idpallet}">
+					$("#cbounidad").append(
+							`<option value="${value.idunidad}">
 								${value.descripcion}</option>`
 							);
 				})
-				$("#cbopallet").val(idpallet);
+				$("#cbounidad").val(idunidad);
 			}			
 		}
 	})
@@ -53,9 +57,10 @@ $(document).on("click", "#btnguardar", function(){
 		contentType: "application/json",
 		data: JSON.stringify({
 			idproducto: $("#hddidregistroproducto").val(),
-			nombre: $("#txtnombre").val(),
 			descripcion: $("#txtdescripcion").val(),
-			idpallet: $("#cbopallet").val()
+			envase: $("#txtenvase").val(),
+			peso: $("#txtpeso").val(),
+			idunidad: $("#cbounidad").val()
 		}),
 		success: function(resultado){
 			alert(resultado.mensaje);
@@ -69,7 +74,7 @@ $(document).on("click", ".btneliminarproducto", function(){
 	$("#hddideliminarproducto").val("");
 	$("#hddideliminarproducto").val($(this).attr("data-idproducto"));
 	$("#mensajeeliminar").text("¿Seguro de Eliminar el "+ 
-			$(this).attr("data-nombre")+"?");
+			$(this).attr("data-idproducto")+"?");
 	$("#modalEliminarProducto").modal("show");
 })
 
@@ -99,20 +104,22 @@ function ListarProducto(){
 			$.each(resultado, function(index, value){
 				$("#tblproducto > tbody").append("<tr>"+
 						"<td>"+value.idproducto+"</td>"+
-						"<td>"+value.nombre+"</td>"+
 						"<td>"+value.descripcion+"</td>"+
-						"<td>"+value.pallet.descripcion+"</td>"+
+						"<td>"+value.unidad.descripcion+"</td>"+
+						"<td>"+value.envase+"</td>"+
+						"<td>"+value.peso+"</td>"+
 						"<td>"+
 							"<button type='button' class='btn btn-success btnactualizarproducto'"+
 							" data-idproducto='"+value.idproducto+"'"+
-							" data-nombre='"+value.nombre+"'"+
 							" data-descripcion='"+value.descripcion+"'"+
-							" data-idpallet='"+value.pallet.idpallet+"'"+
+							" data-envase='"+value.envase+"'"+
+							" data-peso='"+value.peso+"'"+
+							" data-idunidad='"+value.unidad.idunidad+"'"+
 							"><i class='fas fa-pen'></i></button></td>"+
 						"<td>"+
 							"<button type='button' class='btn btn-danger btneliminarproducto'"+	
 							" data-idproducto='"+value.idproducto+"'"+
-							" data-nombre='"+value.nombre+"'"+
+							" data-descripcion='"+value.descripcion+"'"+
 							"><i class='fas fa-trash'></i></button></td>"+							
 						"</tr>")
 			})				

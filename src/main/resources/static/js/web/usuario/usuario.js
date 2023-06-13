@@ -128,7 +128,7 @@ function listarusandoajax() {
 					"<td>" + value.idusuario + "</td>" +
 					"<td>" + value.rol.nombrerol + "</td>" +
 					"<td>" + value.nombre + "</td>" +
-					"<td>" + value.apellidos + "</td>" +
+					"<td>" + value.apellido + "</td>" +
 					"<td>" + value.usuarios + "</td>" +
 					"<td>" + value.correo + "</td>" +
 					"<td>" + value.telefono + "</td>" +

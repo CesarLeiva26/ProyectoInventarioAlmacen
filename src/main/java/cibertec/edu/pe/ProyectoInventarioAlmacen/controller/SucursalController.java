@@ -49,7 +49,7 @@ public class SucursalController {
 			sucursalService.registrarSucursal(objsucursal);
 			
 		} catch (Exception e) {
-			mensaje = "registro Sucursal sin Exito";
+			mensaje = "Registro Sucursal sin Exito";
 			respuesta = false;
 		}
 		return ResultadosucursalResponse

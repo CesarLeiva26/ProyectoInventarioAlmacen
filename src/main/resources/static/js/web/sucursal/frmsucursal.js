@@ -138,4 +138,3 @@ $(document).on("click", "#btneliminar", function(){
 	$("#modalEliminarSucursal").modal("hide");
 })
 
-

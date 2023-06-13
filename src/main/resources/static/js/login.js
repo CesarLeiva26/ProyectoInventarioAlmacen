@@ -12,3 +12,6 @@ function login(){
 	}
 }
 
+function salir(){
+	window.location.replace("http://localhost:8080/login")
+}

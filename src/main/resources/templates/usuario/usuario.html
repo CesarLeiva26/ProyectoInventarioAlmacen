@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head">
+<body>
+	<script th:src="@{/js/web/usuario/usuario.js}" type="text/javascript"></script>
+	<nav th:insert="layout::menu"></nav>
+	<div th:fragment="Modal_user_create" class="container p-4">
+
+			<div class="text-center">
+				<i class='fa fa-leaf  fa-2x  mt-xl-4 text-success'></i> <span
+					class="h1 fw-bold mb-0">Mantenimiento de Usuarios</span>
+			<br/>	<br/>
+			<button id="mostrarmodalguardar" type="button"
+				class="btn btn-dark fw-bolder"><i class="fas fa-save"></i> Agregar Usuario</button>
+		</div>
+		<div class="container_title_user">
+
+		<div class="modal fade" id="modalregistrousuario" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog " style="max-width: 850px;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">Crear
+							usuario</h1>
+						<button class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+
+						<div class="row">
+							
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label class="form-label" for="idrol">rol</label> <select
+										class="form-control form-control-lg" id="idrol">
+									</select>
+
+								</div>
+								<input type="hidden" id="hdidusuario">
+							</div>
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label class="form-label" for="nombre">Nombre(s)</label> <input
+										type="text" id="nombre" class="form-control form-control-lg" />
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label class="form-label" for="apellido">apellido(s)</label> <input
+										type="text" id="apellido" class="form-control form-control-lg" />
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label class="form-label" for="usuario">Usuario</label> <input
+										type="text" id="usuario" class="form-control form-control-lg" />
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label class="form-label" for="correo">Correo</label> <input
+										type="email" id="correo" class="form-control form-control-lg" />
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label class="form-label" for="telefono">Telefono</label> <input
+										id="telefono" class="form-control form-control-lg" />
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="modal-footer btn_modal_user justify-content-center">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Cerrar</button>
+						<button id="guardarusuario" type="button" class="btn btn-success">Guardar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="container p-5">
+		<div class="form-outline col-6 search_users">
+			<input type="search" id="form1" class="form-control"
+				placeholder="Buscar usuario" aria-label="Search" />
+		</div>
+
+		<table id="tbllistausuarios" class="table">
+			<thead class="table-dark">
+				<tr>
+					<th scope="col">Id usuario</th>
+					<th scope="col">Rol</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Apellidos</th>
+					<th scope="col">Usuario</th>
+					<th scope="col">Correo</th>
+					<th scope="col">Telefono</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="lista:${listausuario}">
+					<td th:text="${lista.idusuario}"></td>
+					<td th:text="${lista.rol.nombrerol}"></td>
+					<td th:text="${lista.nombre}"></td>
+					<td th:text="${lista.apellidos}"></td>
+					<td th:text="${lista.usuario}"></td>
+					<td th:text="${lista.correo}"></td>
+					<td th:text="${lista.telefono}"></td>
+
+					<td>
+						<button type="button" class="btn btn-success btnactualizar"
+							th:data-idusuario="${lista.idusuario}"
+							th:data-idrol="${lista.rol.idrol}"
+							th:data-nombre="${lista.nombre}"
+							th:data-apellidos="${lista.apellidos}"
+							th:data-usuario="${lista.usuario}"
+							th:data-correo="${lista.correo}"
+							th:data-telefono="${lista.telefono}">
+							<i class="fas fa-pencil-alt"></i>
+
+
+						</button>
+
+					</td>
+					<td>
+						<button type="button" id="eliminarusuario" class="btn btn-danger btneliminarpregunta"
+							th:data-idusuario="${lista.idusuario}"
+							th:data-nombre="${lista.nombre}">
+							<i class="fas fa-trash"></i>
+						</button>
+
+					</td>
+					<td></td>
+
+
+				</tr>
+
+			</tbody>
+		</table>
+
+	</div>
+	
+	<div class="modal fade" id="modalEliminarusuariopreguntadeconfirmacio" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5">
+						Eliminar Usuario</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<label id="mensajeeliminar"></label>
+					 <input type="hidden" id="hddideliminarusuario" value="0">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Salir</button>
+					<button type="button" class="btn btn-primary"
+						id="confirmareliminar">Eliminar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>	
+
+</body>
+</html>

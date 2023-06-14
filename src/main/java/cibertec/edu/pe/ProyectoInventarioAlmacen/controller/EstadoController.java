@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/ubicacion")
-public class UbicacionController {
+@RequestMapping("/estado")
+public class EstadoController {
 
-	@GetMapping("/frmubicacion")
-	public String frmMantUbicacion() {
+	@GetMapping("/frmestado")
+	public String frmMantEstado() {
 		// model.addAttribute("listaentidades", entidadService.listarEntidad());
-		return "ubicacion/frmubicacion";
+		return "estado/frmestado";
 	}
 	
 }

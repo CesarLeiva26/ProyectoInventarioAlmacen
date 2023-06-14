@@ -12,7 +12,7 @@
 	<div th:fragment="Modal_user_create" class="container p-3">
 		<div class="container_title_user">
 			<div class="text-center">
-				<i class='fa fa-leaf  fa-2x text-success'></i>  <span class="h1 fw-bold mb-0">Ubicacion</span>
+				<i class='fa fa-leaf  fa-2x text-success'></i>  <span class="h1 fw-bold mb-0">Estado</span>
 			</div>
 		</div>
 
@@ -22,8 +22,8 @@
 		    <form action="" class="form-inline">
 		        <div class="form-group">
 		            <div class="input-group">
-		                <label class="align-self-center">Ubicacion:</label>
-		                <input type="text" class="form-control" placeholder="Ubicaciones">
+		                <label class="align-self-center">Estado:</label>
+		                <input type="text" class="form-control" placeholder="Estados">
 		                <div class="input-group-append" style="margin-left: 10px;">
 		                    <button type="submit" id="btnagregar"  data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"  class="btn btn-primary">Buscar</button>
 		                </div>
@@ -33,7 +33,7 @@
 		    
 		    <button type="button" id="btnagregar" class="btn btn-success" 
 		    		data-bs-toggle="modal" data-bs-target="#exampleModalToggle" data-bs-whatever="@mdo" 
-		    		style="font-weight: bold;">Agregar Ubicación
+		    		style="font-weight: bold;">Agregar Estado
 		    </button>
 
 
@@ -45,7 +45,7 @@
 			<thead class="table-dark">
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">Ubicación</th>
+					<th scope="col">Estado</th>
 					<th scope="col">Fecha Creacion</th>
 					<th scope="col">Eliminar</th>
 				</tr>
@@ -53,25 +53,25 @@
 			<tbody>
 				<tr>
 					<th scope="row">1</th>
-					<td>01-01-001-RA1</td>
+					<td>DISPONIBLE</td>
 					<td>12/03/2023</td>
 					<td><button type="button" class="btn btn-danger btneliminaridentidad"><i class="fas fa-trash-alt" ></i></button></td>
 				</tr>
 				<tr>
 					<th scope="row">2</th>
-					<td>01-01-001-RA2</td>
+					<td>NO DISPONIBLE</td>
 					<td>05/04/2023</td>
 					<td><button type="button" class="btn btn-danger btneliminaridentidad"><i class="fas fa-trash-alt" ></i></button></td>
 				</tr>
 				<tr>
 					<th scope="row">3</th>
-					<td>01-01-001-RF1</td>
+					<td>DEVOLUCION</td>
 					<td>18/10/2023</td>
 					<td><button type="button" class="btn btn-danger btneliminaridentidad"><i class="fas fa-trash-alt" ></i></button></td>
 				</tr>
 				<tr>
 					<th scope="row">4</th>
-					<td>01-01-002-RC1</td>
+					<td>DAÑADO - ROTO</td>
 					<td>25/10/2023</td>
 					<td><button type="button" class="btn btn-danger btneliminaridentidad"><i class="fas fa-trash-alt" ></i></button></td>
 				</tr>
@@ -86,12 +86,12 @@
   		<div class="modal-dialog modal-dialog-centered">
    			<div class="modal-content">
      			<div class="modal-header">
-      		  		<h1 class="modal-title fs-5" id="exampleModalToggleLabel">Crear Nueva Ubicación</h1>
+      		  		<h1 class="modal-title fs-5" id="exampleModalToggleLabel">Crear Nuevo Estado</h1>
       			</div>
       			<div class="modal-body">
 				    <div class="container">
 				        <div class="form-group">
-				            <label for="texto" class="h5">Ubicación:</label>
+				            <label for="texto" class="h5">Estado:</label>
 				            <input type="text" class="form-control form-control-lg" id="texto" name="texto">
 				        </div>
 				        <br>

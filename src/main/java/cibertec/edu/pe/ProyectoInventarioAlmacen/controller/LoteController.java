@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/ubicacion")
-public class UbicacionController {
+@RequestMapping("/lote")
+public class LoteController {
 
-	@GetMapping("/frmubicacion")
+	@GetMapping("/frmlote")
 	public String frmMantUbicacion() {
 		// model.addAttribute("listaentidades", entidadService.listarEntidad());
-		return "ubicacion/frmubicacion";
+		return "lote/frmlote";
 	}
 	
 }

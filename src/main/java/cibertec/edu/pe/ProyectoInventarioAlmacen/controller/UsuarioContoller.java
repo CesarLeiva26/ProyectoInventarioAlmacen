@@ -1,19 +1,18 @@
 package cibertec.edu.pe.ProyectoInventarioAlmacen.controller;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+
 import java.util.List;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,12 +23,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Rol;
 import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Usuario;
 import cibertec.edu.pe.ProyectoInventarioAlmacen.model.request.UsuarioRequest;
 import cibertec.edu.pe.ProyectoInventarioAlmacen.model.response.ResultadoUsuarioResponse;
 import cibertec.edu.pe.ProyectoInventarioAlmacen.service.UsuarioService;
+import java.nio.file.Files;
 
 @Controller
 @RequestMapping("/usuario")
@@ -128,35 +127,47 @@ public class UsuarioContoller {
 
 	@Autowired
 	private ResourceLoader resourceLoader;
+		//carga imagen de cualqier tipo la la transforma a fomato jpg,crea una carpeta donde se guarda, y es asignada al usuario mediante su id
 	@PostMapping("/guadarimagen")
-	public String cargaimagen(@RequestParam("file") MultipartFile file,
-	                          @RequestParam("idusuario") Integer idusuario,Model m) {
-	    String mensaje;
-	    if (!file.isEmpty()) {
-	        try {
-	           // String nombreOriginal = file.getOriginalFilename();
-	            String nuevoNombre = idusuario + ".jpg";
-	            String rutaImagen = "/img/usuariosPerfiles/" + nuevoNombre;
-	            
-	            String rutaAbsoluta = resourceLoader.getResource("classpath:static" + rutaImagen).getFile().getAbsolutePath();
-	            File destino = new File(rutaAbsoluta);
-	            
-	            file.transferTo(destino);
-	            
-	            // Aquí puedes realizar cualquier otra lógica adicional si es necesario
-	            
-	            return "redirect:/usuario/usuario/" + idusuario;
-	        } catch (Exception e) {
-	            mensaje = "error en subir imagen " + e.getMessage();
-	             m.addAttribute("cajaalerta",true);
-	             e.printStackTrace();
-	            m.addAttribute("mensaje", mensaje);
-	        }
-	    }
-	    
-	    return "redirect:/usuario/usuario";
+	public String cargaimagen(@RequestParam("file") MultipartFile file, @RequestParam("idusuario") Integer idusuario) {
+
+		if (!file.isEmpty()) {
+			try {
+				
+				String nuevoNombre = idusuario + ".jpg";
+				String rutaImagen = "static/img/usuariosPerfiles/";
+
+				Resource resource = resourceLoader.getResource("classpath:" + rutaImagen);
+				File directorioDestino = resource.getFile();
+
+				if (!directorioDestino.exists()) {
+					directorioDestino.mkdirs();
+				}
+
+				File destino = new File(directorioDestino, nuevoNombre);
+
+				BufferedImage image = ImageIO.read(file.getInputStream());
+				ImageIO.write(image, "jpg", destino);
+				
+				if (destino.exists()) {
+					String rutaAbsoluta = destino.getAbsolutePath();
+					//muestra en cosnsola la ruta dela imagen., genera un error que no afecta la funcionalidad, 
+					//revisar posteriormente
+					System.out.println("Ruta de la imagen guardada: " + rutaAbsoluta);
+
+					return "redirect:/usuario/usuario/" + idusuario;
+				} else {
+					
+				}
+
+				return "redirect:/usuario/usuario/" + idusuario;
+			} catch (Exception e) {
+
+				e.printStackTrace();
+
+			}
+		}
+		return "redirect:/usuario/usuario";
 	}
-
-
 
 }

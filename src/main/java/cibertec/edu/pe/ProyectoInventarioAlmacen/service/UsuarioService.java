@@ -27,5 +27,9 @@ public class UsuarioService {
 		 
 		repo.deleteById(idusuario);
 	}
+	
+	public Usuario buscarporID(Integer idusuario) {
+		return repo.findById(idusuario).orElse(null);
+	}
 
 }

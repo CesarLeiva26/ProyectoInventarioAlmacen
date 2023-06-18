@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Entidad;
-import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Pallet;
-import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Producto;
+
 import cibertec.edu.pe.ProyectoInventarioAlmacen.model.request.EntidadRequest;
-import cibertec.edu.pe.ProyectoInventarioAlmacen.model.request.ProductoRequest;
-import cibertec.edu.pe.ProyectoInventarioAlmacen.model.response.ResultadoentidadResponse;
-import cibertec.edu.pe.ProyectoInventarioAlmacen.model.response.ResultadoproductoResponse;
+import cibertec.edu.pe.ProyectoInventarioAlmacen.model.response.ResultadoResponse;
+
+
 import cibertec.edu.pe.ProyectoInventarioAlmacen.service.EntidadService;
 
 @Controller
@@ -36,7 +36,7 @@ public class EntidadController {
 	
 	@PostMapping("/registrarEntidad")
 	@ResponseBody
-	public ResultadoentidadResponse registrarEntidad(@RequestBody EntidadRequest entidadRequest) {
+	public ResultadoResponse registrarEntidad(@RequestBody EntidadRequest entidadRequest) {
 	    String mensaje = "Registro de Entidad Exitoso";
 	    boolean respuesta = true;
 	    try {
@@ -56,14 +56,12 @@ public class EntidadController {
 	        mensaje = "Registro de Entidad sin Éxito";
 	        respuesta = false;
 	    }
-	    return ResultadoentidadResponse.builder().mensaje(mensaje).respuesta(respuesta).build();
+	    return ResultadoResponse.builder().mensaje(mensaje).respuesta(respuesta).build();
 	}
 
-	
-	
 	@DeleteMapping("/eliminarEntidad")
 	@ResponseBody
-	public ResultadoentidadResponse eliminarEntidad(@RequestBody EntidadRequest entidadRequest) {
+	public ResultadoResponse eliminarEntidad(@RequestBody EntidadRequest entidadRequest) {
 		String mensaje = "Eliminación de Entidad Exitoso";
 		Boolean respuesta = true;
 		try {
@@ -72,17 +70,17 @@ public class EntidadController {
 			mensaje = "Eliminación de Entidad sin Éxito";
 			respuesta = false;
 		}
-		return ResultadoentidadResponse.builder().mensaje(mensaje).respuesta(respuesta).build();
+		return ResultadoResponse.builder().mensaje(mensaje).respuesta(respuesta).build();
 	}
 	
-	
-	
+
 	@GetMapping("/listarEntidades")
 	@ResponseBody
 	public List<Entidad> listarEntidades() {
 		return entidadService.listarEntidad();
 	}
+
+
 	
-	// Otros métodos del controlador para las demás funcionalidades
 	
 }

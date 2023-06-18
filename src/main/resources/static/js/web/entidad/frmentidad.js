@@ -1,129 +1,183 @@
-function ListarEntidad() {
-	$.ajax({
-		type: "GET",
-		url: "/entidad/listarEntidades",
-		dataType: "json",
-		success: function(resultado) {
-			$("#tblentidad > tbody").html("");
-			$.each(resultado, function(index, value) {
-				$("#tblentidad > tbody").append(
-					"<tr>" +
-					"<td>" + value.identidad + "</td>" +
-					"<td>" + value.entidad + "</td>" +
-					"<td>" + value.nombreEntidad + "</td>" +
-					"<td>" + value.tipo + "</td>" +
-					"<td>" + value.direccion + "</td>" +
-					"<td>" + value.correo + "</td>" +
-					"<td>" + value.telefono + "</td>" +
-					"<td>" + value.notas + "</td>" +
-					"<td>" +
-					"<button type='button' class='btn btn-success btnactualizarentidad'" +
-					" data-identidad='" + value.identidad + "'" +
-					" data-entidad='" + value.entidad + "'" +
-					" data-nombreEntidad='" + value.nombreEntidad + "'" +
-					" data-tipo='" + value.tipo + "'" +
-					" data-direccion='" + value.direccion + "'" +
-					" data-correo='" + value.correo + "'" +
-					" data-telefono='" + value.telefono + "'" +
-					" data-notas='" + value.notas + "'" +
-					"><i class='fas fa-pen'></i></button>" +
-					"</td>" +
-					"<td>" +
-					"<button type='button' class='btn btn-danger btneliminarentidad'" +
-					" data-identidad='" + value.identidad + "'" +
-					" data-entidad='" + value.entidad + "'" +
-					"><i class='fas fa-trash'></i></button>" +
-					"</td>" +
-					"</tr>"
-				);
-			});
-		}
-	});
+// Función para listar las entidades
+function listarEntidades() {
+  $.ajax({
+    type: "GET",
+    url: "/entidad/listarEntidades",
+    dataType: "json",
+    success: function(resultado) {
+      // Limpiar la tabla de entidades y el combobox
+      $("#tblentidad > tbody").html("");
+      var cmbEntidades = $("#cmbentidades");
+      cmbEntidades.empty();
+
+      $.each(resultado, function(index, value) {
+        // Agregar cada entidad a la tabla
+        var entidadRow =
+          "<tr>" +
+          "<td>" + value.identidad + "</td>" +
+          "<td>" + value.entidad + "</td>" +
+          "<td>" + value.nombreEntidad + "</td>" +
+          "<td>" + value.tipo + "</td>" +
+          "<td>" + value.direccion + "</td>" +
+          "<td>" + value.correo + "</td>" +
+          "<td>" + value.telefono + "</td>" +
+          "<td>" + value.notas + "</td>" +
+          "<td>" +
+          "<button type='button' class='btn btn-success btnactualizarentidad'" +
+          " data-identidad='" + value.identidad + "'" +
+          " data-entidad='" + value.entidad + "'" +
+          " data-nombreentidad='" + value.nombreEntidad + "'" +
+          " data-tipo='" + value.tipo + "'" +
+          " data-direccion='" + value.direccion + "'" +
+          " data-correo='" + value.correo + "'" +
+          " data-telefono='" + value.telefono + "'" +
+          " data-notas='" + value.notas + "'" +
+          "><i class='fas fa-pen'></i></button>" +
+          "</td>" +
+          "<td>" +
+          "<button type='button' class='btn btn-danger btneliminarentidad'" +
+          " data-identidad='" + value.identidad + "'" +
+          " data-entidad='" + value.entidad + "'" +
+          "><i class='fas fa-trash'></i></button>" +
+          "</td>" +
+          "</tr>";
+
+        $("#tblentidad > tbody").append(entidadRow);
+
+        // Agregar cada entidad al combobox
+        cmbEntidades.append("<option value='" + value.nombreEntidad + "'>" + value.nombreEntidad + "</option>");
+      });
+
+      bindDeleteButtonEvents();
+    }
+  });
 }
 
+// Función para vincular los eventos de los botones de eliminar
+function bindDeleteButtonEvents() {
+  $(".btneliminarentidad").off("click");
 
-$(document).on("click", ".btnactualizarentidad", function(){
-	$("#txtentidad").val($(this).attr("data-entidad"));
-	$("#txtnombreentidad").val($(this).attr("data-nombreentidad"));
-	$("#txttipo").val($(this).attr("data-tipo"));
-	$("#txtdireccion").val($(this).attr("data-direccion"));
-	$("#txtcorreo").val($(this).attr("data-correo"));
-	$("#txttelefono").val($(this).attr("data-telefono"));
-	$("#txtnotas").val($(this).attr("data-notas"));
-	$("#hddidregistroentidad").val($(this).attr("data-identidad"));
-	
-	$("#modalEntidad").modal("show");
+  $(".btneliminarentidad").on("click", function() {
+    var entityId = $(this).attr("data-identidad");
+    var entityName = $(this).attr("data-entidad");
+
+    $("#hddideliminarentidad").val(entityId);
+    $("#mensajeeliminar").text("¿Seguro de eliminar " + entityName + "?");
+    $("#modalEliminarEntidad").modal("show");
+  });
+
+  $("#btneliminar").off("click");
+
+  $("#btneliminar").on("click", function() {
+    $.ajax({
+      type: "DELETE",
+      contentType: "application/json",
+      url: "/entidad/eliminarEntidad",
+      data: JSON.stringify({
+        identidad: $("#hddideliminarentidad").val()
+      }),
+      success: function(resultado) {
+        listarEntidades();
+      }
+    });
+    $("#modalEliminarEntidad").modal("hide");
+  });
+}
+
+$(document).ready(function() {
+  // Cargar las entidades en el combobox al cargar la página
+  $.ajax({
+    type: "GET",
+    url: "/entidad/listarEntidades",
+    dataType: "json",
+    success: function(data) {
+      var cmbEntidades = $("#cmbentidades");
+      $.each(data, function(index, entidad) {
+        cmbEntidades.append("<option value='" + entidad.nombreEntidad + "'>" + entidad.nombreEntidad + "</option>");
+      });
+    }
+  });
+
+  // Filtrar entidades al hacer clic en el botón buscar
+  $("#btnbuscar").click(function() {
+    var nombre = $("#cmbentidades").val();
+
+    $("#tblentidad tbody tr").hide().filter(function() {
+      return $(this).find("td:eq(2)").text() === nombre;
+    }).show();
+  });
+
+  // Abrir el modal para actualizar entidad al hacer clic en el botón de actualizar
+  $(document).on("click", ".btnactualizarentidad", function() {
+    var entityId = $(this).attr("data-identidad");
+    var entityName = $(this).attr("data-entidad");
+    var entityNombreEntidad = $(this).attr("data-nombreentidad");
+    var entityTipo = $(this).attr("data-tipo");
+    var entityDireccion = $(this).attr("data-direccion");
+    var entityCorreo = $(this).attr("data-correo");
+    var entityTelefono = $(this).attr("data-telefono");
+    var entityNotas = $(this).attr("data-notas");
+
+    $("#txtidentidad").val(entityId);
+    $("#txtentidad").val(entityName);
+    $("#txtnombreentidad").val(entityNombreEntidad);
+    $("#txttipo").val(entityTipo);
+    $("#txtdireccion").val(entityDireccion);
+    $("#txtcorreo").val(entityCorreo);
+    $("#txttelefono").val(entityTelefono);
+    $("#txtnotas").val(entityNotas);
+    $("#hddidregistroentidad").val(entityId);
+
+    $("#modalEntidad").modal("show");
+  });
+
+  // Abrir el modal para agregar una nueva entidad al hacer clic en el botón de agregar
+  $(document).on("click", "#btnagregar", function() {
+    $("#txtidentidad").val("");
+    $("#txtentidad").val("");
+    $("#txtnombreentidad").val("");
+    $("#txttipo").val("");
+    $("#txtdireccion").val("");
+    $("#txtcorreo").val("");
+    $("#txttelefono").val("");
+    $("#txtnotas").val("");
+
+    $("#modalEntidad").modal("show");
+  });
+
+  // Guardar una entidad al hacer clic en el botón de guardar
+  $(document).on("click", "#btnguardar", function() {
+    var entityId = $("#hddidregistroentidad").val();
+    var entityName = $("#txtentidad").val();
+    var entityNombreEntidad = $("#txtnombreentidad").val();
+    var entityTipo = $("#txttipo").val();
+    var entityDireccion = $("#txtdireccion").val();
+    var entityCorreo = $("#txtcorreo").val();
+    var entityTelefono = $("#txttelefono").val();
+    var entityNotas = $("#txtnotas").val();
+
+    $.ajax({
+      type: "POST",
+      url: "/entidad/registrarEntidad",
+      contentType: "application/json",
+      data: JSON.stringify({
+        identidad: entityId,
+        entidad: entityName,
+        nombreentidad: entityNombreEntidad,
+        tipo: entityTipo,
+        direccion: entityDireccion,
+        correo: entityCorreo,
+        telefono: entityTelefono,
+        notas: entityNotas
+      }),
+      success: function(resultado) {
+        alert(resultado.mensaje);
+        listarEntidades();
+      }
+    });
+    $("#modalEntidad").modal("hide");
+  });
+
+  // Inicializar la página listando las entidades
+  listarEntidades();
 });
-
-
-$(document).on("click", "#btnagregar", function(){
-	$("#txtidentidad").val("");
-	$("#txtentidad").val("");
-	$("#txtnombreentidad").val("");
-	$("#txttipo").val("");
-	$("#txtdireccion").val("");
-	$("#txtcorreo").val("");
-	$("#txttelefono").val("");
-	$("#txtnotas").val("");
-
-	$("#modalEntidad").modal("show");
-});
-
-
-$(document).on("click", "#btnguardar", function(){
-	$.ajax({
-		type: "POST",
-		url: "/entidad/registrarEntidad",
-		contentType: "application/json",
-		data: JSON.stringify({
-			identidad: $("#hddidregistroentidad").val(),
-			entidad: $("#txtentidad").val(),
-			nombreentidad: $("#txtnombreentidad").val(),
-			tipo: $("#txttipo").val(),
-			direccion: $("#txtdireccion").val(),
-			correo: $("#txtcorreo").val(),
-			telefono: $("#txttelefono").val(),
-			notas: $("#txtnotas").val()
-		}),
-		success: function(resultado){
-			alert(resultado.mensaje);
-			ListarEntidad();
-		}
-	});
-	$("#modalEntidad").modal("hide");
-});
-
-
-
-
-
-
-
-
-
-
-
-$(document).on("click", ".btneliminaridentidad", function(){
-	$("#hddideliminarentidad").val("");
-	$("#hddideliminarentidad").val($(this).attr("data-identidad"));
-	$("#mensajeeliminar").text("¿Seguro de eliminar " + $(this).attr("data-entidad") + "?");
-	$("#modalEliminarEntidad").modal("show");
-});
-
-$(document).on("click", "#btneliminar", function(){
-	$.ajax({
-		type: "DELETE",
-		contentType: 'application/json',
-		url: "/entidad/eliminarEntidad",
-		data: JSON.stringify({
-			identidad: $("#hddideliminarentidad").val()
-		}),
-		success: function(resultado){
-			alert(resultado.mensaje);
-			ListarEntidad();
-		}
-	});
-	$("#modalEliminarEntidad").modal("hide");
-});
-
-

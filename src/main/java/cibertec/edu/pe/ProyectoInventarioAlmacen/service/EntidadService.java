@@ -5,23 +5,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Entidad;
+
 import cibertec.edu.pe.ProyectoInventarioAlmacen.repository.EntidadRepository;
 
 @Service
 public class EntidadService {
-	@Autowired
-	private EntidadRepository entidadRepository;
+    @Autowired
+    private EntidadRepository entidadRepository;
 
-	public List<Entidad> listarEntidad() {
-		return entidadRepository.findAll();
-	}
+    public List<Entidad> listarEntidad() {
+        return entidadRepository.findAll();
+    }
 
-	public void registrarEntidad(Entidad entidad) {
-		entidadRepository.save(entidad);
-	}
+    public void registrarEntidad(Entidad entidad) {
+        entidadRepository.save(entidad);
+    }
 
-	public void eliminarEntidad(Integer identidad) {
-		entidadRepository.deleteById(identidad);
-	}
+    public void eliminarEntidad(Integer identidad) {
+        entidadRepository.deleteById(identidad);
+    }
 
 }

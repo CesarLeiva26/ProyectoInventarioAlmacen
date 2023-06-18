@@ -33,7 +33,7 @@ import java.nio.file.Files;
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioContoller {
-
+//cabio
 	@Autowired
 	private UsuarioService usuarioService;
 
@@ -127,13 +127,15 @@ public class UsuarioContoller {
 
 	@Autowired
 	private ResourceLoader resourceLoader;
-		//carga imagen de cualqier tipo la la transforma a fomato jpg,crea una carpeta donde se guarda, y es asignada al usuario mediante su id
+
+	// carga imagen de cualqier tipo la la transforma a fomato jpg,crea una carpeta
+	// donde se guarda, y es asignada al usuario mediante su id
 	@PostMapping("/guadarimagen")
 	public String cargaimagen(@RequestParam("file") MultipartFile file, @RequestParam("idusuario") Integer idusuario) {
 
 		if (!file.isEmpty()) {
 			try {
-				
+
 				String nuevoNombre = idusuario + ".jpg";
 				String rutaImagen = "static/img/usuariosPerfiles/";
 
@@ -148,16 +150,17 @@ public class UsuarioContoller {
 
 				BufferedImage image = ImageIO.read(file.getInputStream());
 				ImageIO.write(image, "jpg", destino);
-				
+
 				if (destino.exists()) {
 					String rutaAbsoluta = destino.getAbsolutePath();
-					//muestra en cosnsola la ruta dela imagen., genera un error que no afecta la funcionalidad, 
-					//revisar posteriormente
+					// muestra en cosnsola la ruta dela imagen., genera un error que no afecta la
+					// funcionalidad,
+					// revisar posteriormente
 					System.out.println("Ruta de la imagen guardada: " + rutaAbsoluta);
 
 					return "redirect:/usuario/usuario/" + idusuario;
 				} else {
-					
+
 				}
 
 				return "redirect:/usuario/usuario/" + idusuario;

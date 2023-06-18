@@ -38,41 +38,48 @@
 									<div class="mb-3">
 										<label class="form-label" for="idrol">rol</label> <select
 											class="form-control form-control-lg" id="idrol">
-										</select>
+
+										</select> <small class="text-danger" id="errorrol"> </small>
 
 									</div>
-									<input type="hidden" id="hdidusuario">
+									<input type="hidden" id="hdidusuario"> <small
+										class="text-danger" id="errorid"> </small>
 								</div>
 								<div class="col-md-4">
 									<div class="mb-3">
 										<label class="form-label" for="nombre">Nombre(s)</label> <input
 											type="text" id="nombre" class="form-control form-control-lg" />
+										<small class="text-danger" id="errornombre"> </small>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="mb-3">
 										<label class="form-label" for="apellido">apellido(s)</label> <input
 											type="text" id="apellido"
-											class="form-control form-control-lg" />
+											class="form-control form-control-lg" /> <small
+											class="text-danger" id="errorapellido"> </small>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="mb-3">
 										<label class="form-label" for="usuario">Usuario</label> <input
 											type="text" id="usuario" class="form-control form-control-lg" />
+										<small class="text-danger" id="errorusuario"> </small>
 									</div>
 								</div>
 								<div class="col-md-4">
 									<div class="mb-3">
 										<label class="form-label" for="correo">Correo</label> <input
 											type="email" id="correo" class="form-control form-control-lg" />
+										<small class="text-danger" id="errorcorreo"> </small>
 									</div>
 								</div>
 
 								<div class="col-md-4">
 									<div class="mb-3">
 										<label class="form-label" for="telefono">Telefono</label> <input
-											id="telefono" class="form-control form-control-lg" />
+											id="telefono" class="form-control form-control-lg" /> <small
+											class="text-danger" id="errortelefono"> </small>
 									</div>
 								</div>
 
@@ -90,32 +97,33 @@
 
 		</div>
 		<div class="d-flex justify-content-center">
-		
-		<div class="d-flex " th:if="${usuarioporid}">
-			<div class="card d-flex justify-content-center align-items-center" style="height: 12rem; width: 10rem;">
-				
-				<img class="img-fluid" alt="Imagen"
-					th:src="@{'/img/usuariosPerfiles/' + ${usuarioporid.idusuario} + '.jpg'}">
+
+			<div class="d-flex " th:if="${usuarioporid}">
+				<div class="card d-flex justify-content-center align-items-center"
+					style="height: 12rem; width: 10rem;">
+
+					<img class="img-fluid" alt="Imagen"
+						th:src="@{'/img/usuariosPerfiles/' + ${usuarioporid.idusuario} + '.jpg'}">
 
 
 
-			</div>
+				</div>
 
 
-			<div class="card body px-3" >
-				<ul>
-					<li>cod usuario: <span th:text="${usuarioporid.idusuario}"></span></li>
-					<li>Rol: <span th:text="${usuarioporid.rol.nombrerol}"></span></li>
-					<li>Nombre: <span th:text="${usuarioporid.nombre}"></span></li>
-					<li>Apellidos: <span th:text="${usuarioporid.apellidos}"></span></li>
-					<li>usuario: <span th:text="${usuarioporid.usuario}"></span></li>
-					<li>Correo: <span th:text="${usuarioporid.correo}"></span></li>
-					<li>Telefono: <span th:text="${usuarioporid.telefono}"></span></li>
-				</ul>
+				<div class="card body px-3">
+					<ul>
+						<li>cod usuario: <span th:text="${usuarioporid.idusuario}"></span></li>
+						<li>Rol: <span th:text="${usuarioporid.rol.nombrerol}"></span></li>
+						<li>Nombre: <span th:text="${usuarioporid.nombre}"></span></li>
+						<li>Apellidos: <span th:text="${usuarioporid.apellidos}"></span></li>
+						<li>usuario: <span th:text="${usuarioporid.usuario}"></span></li>
+						<li>Correo: <span th:text="${usuarioporid.correo}"></span></li>
+						<li>Telefono: <span th:text="${usuarioporid.telefono}"></span></li>
+					</ul>
+				</div>
 			</div>
 		</div>
-		</div>
-		
+
 
 
 
@@ -126,8 +134,9 @@
 						<div class="d-flex">
 							<div>
 								<input name="idusuario" type="number" id="form1"
-									class="form-control boton-personalizado" placeholder="Buscar usuario"
-									aria-label="Search" required pattern="[1-9][0-9]*" />
+									class="form-control boton-personalizado"
+									placeholder="Buscar usuario" aria-label="Search" required
+									pattern="[1-9][0-9]*" />
 							</div>
 							<div>
 								<button type="submit" class="boton-personalizado">buscar
@@ -164,12 +173,11 @@
 						<div class="modal-content">
 							<div class="modal-header"></div>
 							<div class="modal-body">
-								<input class="form-control" type="file" name="file" accept="image/*">
-								
-								<label> Seleccione el usuario a asignar imagen</label>
-								 <select class="form-control"
-									id="listausuario" name="idusuario" style="width: 8rem;">
-									
+								<input class="form-control" type="file" name="file"
+									accept="image/*"> <label> Seleccione el usuario
+									a asignar imagen</label> <select class="form-control" id="listausuario"
+									name="idusuario" style="width: 8rem;">
+									<option th:value="0">Seleccione un rol</option>
 									<option th:each="lista: ${listausuario}"
 										th:value="${lista.idusuario}" th:text="${lista.nombre}"></option>
 								</select>

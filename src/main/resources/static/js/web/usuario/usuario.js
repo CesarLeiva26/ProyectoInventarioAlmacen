@@ -15,7 +15,7 @@ $(document).on("click", "#mostrarmodalguardar", function() {
 			if (resultado.length > 0) {
 				$.each(resultado, function(index, value) {
 					$("#idrol").append(
-						`<option value="${value.idrol}">
+							`<option value="${value.idrol}">
 					${value.nombrerol}</option>`
 					);
 				})
@@ -28,9 +28,49 @@ $(document).on("click", "#mostrarmodalguardar", function() {
 
 	$("#modalregistrousuario").modal("show");
 });
-
+//holi
 
 $(document).on("click", "#guardarusuario", function() {
+	if($("#idrol").val()==""){
+		$("#errorrol").text("Seleccione un rol")
+	}else{
+		$("#errorrol").text("");
+		
+	}
+	if($("#nombre").val()==""){
+		$("#errornombre").text("El campo nombre no puede ser vacio")
+	}else{
+		$("#errornombre").text("");
+	}
+	if($("#apellido").val()==""){
+		$("#errorapellido").text("Elcampo apellido no puede ser vacio")
+	}else{
+		$("#errorapellido").text("")
+	}
+	if($("#usuario").val()==""){
+		$("#errorusuario").text("El campo usuario no puede ser vacio")
+		
+	}else{
+		$("#errorusuario").text("");
+	}
+	if($("#correo").val()==""){
+		$("#errorcorreo").text("El campo correo no puede ser vacio")
+	}else{
+		$("#errorcorreo").text("");
+	}
+	if($("#telefono").val()==""){
+		$("#errortelefono").text("El camo telefono no puede ser vacio")
+		
+	}else{
+		$("#errortelefono").text("");
+	}
+	
+	if($("#nombre").val() != ""
+	&& $("#apellido").val()!=""
+	||$("#idrol").va()!=empty()
+	)
+	
+	{
 	$.ajax({
 		type: "POST",
 		url: "/usuario/guardarusuario",
@@ -51,7 +91,13 @@ $(document).on("click", "#guardarusuario", function() {
 
 	})
 
-	$("#modalregistrousuario").modal("hide");
+	$("#modalregistrousuario").modal("hide");	
+		
+		
+	}
+	
+	
+	
 })
 
 
@@ -128,7 +174,7 @@ function listarusandoajax() {
 					"<td>" + value.idusuario + "</td>" +
 					"<td>" + value.rol.nombrerol + "</td>" +
 					"<td>" + value.nombre + "</td>" +
-					"<td>" + value.apellido + "</td>" +
+					"<td>" + value.apellidos + "</td>" +
 					"<td>" + value.usuario + "</td>" +
 					"<td>" + value.correo + "</td>" +
 					"<td>" + value.telefono + "</td>" +

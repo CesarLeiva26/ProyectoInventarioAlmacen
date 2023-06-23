@@ -20,6 +20,9 @@ public class Producto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idproducto;
 	
+	@Column(name="producto")
+	private String producto;
+	
 	@Column(name="descripcion")
 	private String descripcion;
 	
@@ -31,7 +34,5 @@ public class Producto {
 	private String envase;
 	
 	@Column(name="peso")
-	private String peso;
-	
-	
+	private String peso;	
 }

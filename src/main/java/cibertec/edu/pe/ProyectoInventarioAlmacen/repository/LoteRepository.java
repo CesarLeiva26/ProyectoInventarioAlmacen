@@ -1,6 +1,7 @@
 package cibertec.edu.pe.ProyectoInventarioAlmacen.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -19,6 +20,8 @@ public interface LoteRepository extends JpaRepository<Lote, Integer> {
     @Modifying
     @Query(value = "{call SpInsertarlote(:lote, :fechaFab)}", nativeQuery = true)
     void insertarLote(@Param("lote") String lote, @Param("fechaFab") Date fechafab);
+
+    List<Lote> findByLoteContainingIgnoreCase(String termino);
 
 }
 

@@ -9,5 +9,6 @@ import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Ubicacion;
 
 @Repository
 public interface UbicacionRepository extends JpaRepository<Ubicacion, Integer> {
-    List<Ubicacion> findUbicacionByUbicacionContainingIgnoreCase(String ubicacion);
+    List<Ubicacion> findByUbicacionContainingIgnoreCase(String termino);
+
 }

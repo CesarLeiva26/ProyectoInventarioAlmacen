@@ -16,11 +16,11 @@ public class Ubicacion {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idUbicacion;
+	@Column(name = "idubicacion")
+	private Integer idubicacion;
 
-	@Column(name = "ubicacion")
 	private String ubicacion;
 
-	@Column(nullable = false)
-	private Date fechaCreacion;
+	@Column(name = "fechacreacion")
+	private Date fechacreacion;
 }

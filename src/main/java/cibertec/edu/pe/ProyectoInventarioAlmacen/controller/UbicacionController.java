@@ -26,10 +26,9 @@ public class UbicacionController {
 		return "ubicacion/frmubicacion";
 	}
 
-	 @GetMapping("/buscarUbicacionAutocompletado")
-	    @ResponseBody
-	    public List<Ubicacion> buscarUbicacion(@RequestParam String term) {
-			List<Ubicacion> ubicacion =  ubicacionService.buscarUbicacionPorTermino(term);
-	        return ubicacion;
-	    }
+	@GetMapping("/buscarUbicaciones")
+	@ResponseBody
+	public List<Ubicacion> buscarUbicaciones(@RequestParam("termino") String termino) {
+	    return ubicacionService.buscarUbicacionesPorTermino(termino);
+	}
 }

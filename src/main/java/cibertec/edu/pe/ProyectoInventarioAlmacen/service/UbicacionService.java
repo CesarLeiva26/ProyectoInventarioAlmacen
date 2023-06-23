@@ -14,7 +14,8 @@ public class UbicacionService {
     @Autowired
     private UbicacionRepository ubicacionRepository;
 
-    public List<Ubicacion> buscarUbicacionPorTermino(String termino) {
-        return ubicacionRepository.findUbicacionByUbicacionContainingIgnoreCase(termino);
+    public List<Ubicacion> buscarUbicacionesPorTermino(String termino) {
+        return ubicacionRepository.findByUbicacionContainingIgnoreCase(termino);
     }
+    
 }

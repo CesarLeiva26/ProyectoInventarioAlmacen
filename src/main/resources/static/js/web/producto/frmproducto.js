@@ -1,5 +1,6 @@
 $(document).on("click", "#btnagregar", function(){
 	$("#txtcodigo").val("");
+	$("#txtproducto").val("");
 	$("#txtdescripcion").val("");
 	$("#txtenvase").val("");
 	$("#txtpeso").val("");
@@ -57,6 +58,7 @@ $(document).on("click", "#btnguardar", function(){
 		contentType: "application/json",
 		data: JSON.stringify({
 			idproducto: $("#hddidregistroproducto").val(),
+			producto: $("#txtproducto").val(),
 			descripcion: $("#txtdescripcion").val(),
 			envase: $("#txtenvase").val(),
 			peso: $("#txtpeso").val(),
@@ -111,6 +113,7 @@ function ListarProducto(){
 						"<td>"+
 							"<button type='button' class='btn btn-success btnactualizarproducto'"+
 							" data-idproducto='"+value.idproducto+"'"+
+							" data-producto='"+value.producto+"'"+	
 							" data-descripcion='"+value.descripcion+"'"+
 							" data-envase='"+value.envase+"'"+
 							" data-peso='"+value.peso+"'"+

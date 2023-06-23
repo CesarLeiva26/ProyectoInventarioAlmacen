@@ -1,6 +1,5 @@
 package cibertec.edu.pe.ProyectoInventarioAlmacen.model.request;
 
-import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Rol;
 import lombok.Builder;
 import lombok.Data;
 @Data

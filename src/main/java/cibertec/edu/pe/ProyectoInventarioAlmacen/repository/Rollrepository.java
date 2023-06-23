@@ -8,4 +8,5 @@ import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Rol;
 @Repository
 public interface Rollrepository extends JpaRepository<Rol, Integer> {
 
+	Rol findByNombrerol(String nombrerol);
 }

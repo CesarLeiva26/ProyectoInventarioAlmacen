@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head">
+<meta charset="UTF-8">
+<link th:href="@{/css/custom.css}" rel="stylesheet">
+</head>
+<body>
+
+	<div class="card">
+		<div class="card-header">REGISTRO DE USUARIO</div>
+		<div class="card-body">
+			<form method="post" th:action="@{/auth/guardarUsuario}">
+
+				<div class="modal-bodys">
+
+					<div class="row">
+
+						<div class="col-md-4">
+							<div class="mb-3">
+								<label class="form-label" for="idrol">rol</label>
+								<!-- 
+								
+								 <select
+									class="form-control form-control-lg" id="idrol" name="idrol">
+
+								</select> <small class="text-danger" id="errorrol"> </small> 
+								
+								<select
+									class="form-control" id="listausuario" name="idusuario"
+									style="width: 8rem;">
+									
+									<option th:each="lista: ${listausuario}"
+										th:value="${lista.idusuario}" th:text="${lista.nombre}"></option>
+								</select>
+								 -->
+								
+
+
+							</div>
+
+							
+						</div>
+						<div class="col-md-4">
+							<div class="mb-3">
+								<label class="form-label" for="nombre">Nombre(s)</label> <input
+									type="text" id="nombre" name="nombre"
+									class="form-control form-control-lg" /> <small
+									class="text-danger" id="errornombre"> </small>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="mb-3">
+								<label class="form-label" for="apellido">apellido(s)</label> <input
+									type="text" id="apellido" name="apellido"
+									class="form-control form-control-lg" /> <small
+									class="text-danger" id="errorapellido"> </small>
+							</div>
+						</div>
+
+
+						<div class="col-md-4">
+							<div class="mb-3">
+								<label class="form-label" for="usuario">Usuario</label>
+								 <input
+									id="usuario" name="usuario" type="text"
+									class="form-control form-control-lg" /> <small
+									class="text-danger" id="errorusuario"> </small>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="mb-3">
+								<label class="form-label" for="correo">Correo</label> 
+								<input
+									type="email" id="correo" name="correo"
+									class="form-control form-control-lg" /> <small
+									class="text-danger" id="errorcorreo"> </small>
+							</div>
+						</div>
+
+						<div class="col-md-4">
+							<div class="mb-3">
+								<label class="form-label" for="telefono">Telefono</label> 
+								<input
+									type="text" id="telefono" name="telefono"
+									class="form-control form-control-lg" /> <small
+									class="text-danger" id="errortelefono"> </small>
+							</div>
+
+							<div class="col-md-4">
+								<div class="mb-3">
+									<label class="form-label" for="password">pasword</label>
+									 <input
+										type="password" id="password" name="password"
+										class="form-control form-control-lg" /> <small
+										class="text-danger" id="errorapellido"> </small>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+				<button type="submit" class="btn btn-primary">REGISTRAR</button>
+				<a th:href="@{/auth/login}" class="btn btn-primary">VOLVER A
+					LOGIN</a>
+			</form>
+
+
+		</div>
+	</div>
+
+
+
+</body>
+</html>

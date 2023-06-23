@@ -7,5 +7,10 @@ import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer>{
+	
+	public Usuario findByUsuario(String usuario);
+
+	//este parametro es emviado al usuarioservicio
+	Usuario findByNomusuario(String username);
 
 }

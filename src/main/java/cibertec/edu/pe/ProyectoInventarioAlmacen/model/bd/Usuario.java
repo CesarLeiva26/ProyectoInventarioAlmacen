@@ -1,10 +1,17 @@
 package cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -33,6 +40,18 @@ public class Usuario {
 	private String nombre;
 	private String apellidos;
 	private String	usuario; 
+	
+	private String	nomusuario; 
 	private String correo;
 	private String telefono;
+	
+	@Column(name = "activo")
+	private Boolean activo;
+	
+	private String password;
+	
+	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@JoinTable(name = "usuariorol", joinColumns = @JoinColumn(name = "idusuario"), inverseJoinColumns = @JoinColumn(name = "idrol"))
+	private Set<Rol> roles;
+	
 }

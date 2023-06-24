@@ -59,8 +59,7 @@ $('#cboDocResp').on('change', function() {
 $('#orden_repecion').on('submit', async function(event) {
 	event.preventDefault();
 	let detalleRepcion = await captureDataFromRows();
-	console.log('detalleRepcion', detalleRepcion);
-	$('#formulario')[0].reset();
+	$('#orden_repecion')[0].reset();
 });
 
 async function captureDataFromRows() {
@@ -132,8 +131,8 @@ function initTable() {
 	        <div class="autocomplete-results"></div>
 	      </div>
 	    </td>
-	    <td>Fecha de Fab. ${filaCount}</td>
-	    <td>Fecha de Venc. ${filaCount}</td>
+	    <td>-</td>
+	    <td>-</td>
 	    <td>
 	      <select class="form-control" name="cboEstado" id="cboEstado-${filaCount}"> </select>
 	    </td>
@@ -191,8 +190,8 @@ function buscarLote(selector) {
 				input.val(lote.label);
 				input.attr('data-value', lote.label);
 				input.attr('data-id-lote', lote.value);
-				fila.find('td:nth-child(7)').text(lote.fechafab);
-				fila.find('td:nth-child(8)').text(lote.fechaven);
+				fila.find('td:nth-child(7)').text(formatDate(lote.fechafab));
+				fila.find('td:nth-child(8)').text( formatDate(lote.fechaven));
 				input.trigger('change');
 				return false;
 			},
@@ -468,3 +467,16 @@ function buscarOrdenRecepcion() {
 		});
 }
 
+
+function formatDate(fecha) {
+    var fechaObj = new Date(fecha);
+    var dia = fechaObj.getUTCDate();
+    var mes = fechaObj.getUTCMonth() + 1;
+    var anio = fechaObj.getUTCFullYear();
+
+    // Asegurarse de que los valores de día y mes tengan dos dígitos
+    dia = dia < 10 ? "0" + dia : dia;
+    mes = mes < 10 ? "0" + mes : mes;
+
+    return dia + "/" + mes + "/" + anio;
+  }

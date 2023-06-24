@@ -1,21 +1,25 @@
-package cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd;
-
-import lombok.Data;
-
-import javax.persistence.*;
-
-import cibertec.edu.pe.ProyectoInventarioAlmacen.model.request.DetalleRecepcionRequest;
+package cibertec.edu.pe.ProyectoInventarioAlmacen.model.request;
 
 import java.time.LocalDate;
+
 import java.util.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "recepcion")
-@Data
-public class Recepcion {
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
-    @Id
+import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.DetalleRecepcion;
+import lombok.Data;
+
+@Data
+public class RecepcionRequest {
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idrecepcion")
     private Integer idrecepcion;
@@ -42,7 +46,7 @@ public class Recepcion {
     private String notas;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "idrepecion")
+    @JoinColumn(name = "idrecepcion")
     private List<DetalleRecepcion> detallesrecepcion;
 
 }

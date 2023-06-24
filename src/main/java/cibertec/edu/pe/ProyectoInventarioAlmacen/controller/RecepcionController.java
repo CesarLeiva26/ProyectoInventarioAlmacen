@@ -1,14 +1,15 @@
 package cibertec.edu.pe.ProyectoInventarioAlmacen.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd.Recepcion;
+import cibertec.edu.pe.ProyectoInventarioAlmacen.model.request.RecepcionRequest;
+import cibertec.edu.pe.ProyectoInventarioAlmacen.model.response.RecepcionResponse;
 import cibertec.edu.pe.ProyectoInventarioAlmacen.service.RecepcionService;
 
 @Controller
@@ -20,19 +21,26 @@ public class RecepcionController {
 
 	@GetMapping("/orden_recepcion")
 	public String ordenRecepcion() {
-		// model.addAttribute("listaentidades", entidadService.listarEntidad());
 		return "recepcion/orden_recepcion";
 	}
 
 	@GetMapping("/frmrecepcion")
 	public String nuevaRecepcion() {
-		// Agrega atributos al modelo y realiza otras operaciones necesarias
 		return "recepcion/frmrecepcion";
 	}
-	
-	@PostMapping("/recepcion")
-    public ResponseEntity<Recepcion> createRecepcion(@RequestBody Recepcion recepcion) {
-        Recepcion savedRecepcion = recepcionService.saveRecepcion(recepcion);
-        return ResponseEntity.ok(savedRecepcion);
-    }
+
+	@PostMapping("/guardarRecepcion")
+	@ResponseBody
+	public RecepcionResponse guardarRecepcion(@RequestBody RecepcionRequest recepcionRequest) {
+		String mensaje = "Recepción guardada correctamente";
+		boolean respuesta = true;
+		try {
+			recepcionService.guardarRecepcion(recepcionRequest);
+		} catch (Exception e) {
+			mensaje = "Error al guardar la recepción. Se realizó rollback.";
+			respuesta = false;
+		}
+		return RecepcionResponse.builder().mensaje(mensaje).respuesta(respuesta).build();
+	}
+
 }

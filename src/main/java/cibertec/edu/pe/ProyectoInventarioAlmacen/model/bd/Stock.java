@@ -11,10 +11,21 @@ public class Stock {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idStock;
-	private Integer idProducto;
-	private Integer idUbicacion;
-	private Integer idLote;
+	@Column(name = "idstock")
+	private Integer idstock;
+	
+	@Column(name = "idproducto")
+	private Integer idproducto;
+	
+	@Column(name = "idubicacion")
+	private Integer idubicacion;
+	
+	@Column(name = "idlote")
+	private Integer idlote;
+	
+	@Column(name = "cantidad")
 	private Integer cantidad;
-	private Integer idEstado;
+	
+	@Column(name = "idestado")
+	private Integer idestado;
 }

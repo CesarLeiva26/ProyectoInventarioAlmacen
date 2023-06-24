@@ -65,14 +65,14 @@ $('#orden_repecion').on('submit', async function(event) {
 
 async function captureDataFromRows() {
 	let recepcion = {
-		tipoMov: $('#tipoMov').val(),
-		fechaMov: $('#fechaMov').val(),
-		idEntidad: JSON.parse($('#cboEntidad').val()).identidad,
-		idSucursal: $('#cbosucursal').val(),
-		docResp: $('#cboDocResp').val(),
-		numDocResp: $('#numDocResp').val(),
+		tipomov: $('#tipoMov').val(),
+		fechamov: $('#fechaMov').val(),
+		identidad: JSON.parse($('#cboEntidad').val()).identidad,
+		idsucursal: $('#cbosucursal').val(),
+		docresp: $('#cboDocResp').val(),
+		numdocresp: $('#numDocResp').val(),
 		notas: $('#notas').val(),
-		detallesRecepcion: [],
+		detallesrecepcion: [],
 	};
 
 	$('#tblentidad tbody tr').each(function(index) {
@@ -86,18 +86,18 @@ async function captureDataFromRows() {
 
 		let filaDatos = {
 			idproducto: Number(idProducto),
-			idUbicacion: Number(idUbicacion),
-			idLote: Number(idLote),
-			idEstado: Number(estado),
+			idubicacion: Number(idUbicacion),
+			idlote: Number(idLote),
+			idestado: Number(estado),
 			cantidad: Number(entrada),
 		};
 
-		recepcion.detallesRecepcion.push(filaDatos);
+		recepcion.detallesrecepcion.push(filaDatos);
 	});
 
 	$.ajax({
 		type: 'POST',
-		url: '/recepcion/recepcion',
+		url: '/recepcion/guardarRecepcion',
 		contentType: 'application/json',
 		data: JSON.stringify(recepcion),
 		success: function(resultado) {
@@ -391,3 +391,80 @@ function actualizarNumerosFila(tbody) {
 	}
 	filaCount = filas.length;
 }
+
+
+function GetOrdenRecepcion() {
+	$.ajax({
+		url: `/lote/buscarLotes?termino=${request.term}`,
+		type: 'GET',
+
+		success: function(data) {
+			var items = data.map(function(lote) {
+				return {
+					value: lote.idlote,
+					label: lote.lote,
+					fechafab: lote.fechafab,
+					fechaven: lote.fechaven,
+				};
+			});
+			response(items);
+		},
+		error: function() {
+			response([]);
+		},
+	});
+}
+
+
+function buscarOrdenRecepcion() {
+	$(selector)
+		.autocomplete({
+			source: function(request, response) {
+				$.ajax({
+					url: `/lote/buscarLotes?termino=${request.term}`,
+					type: 'GET',
+
+					success: function(data) {
+						console.log("data", data)
+						var items = data.map(function(lote) {
+							return {
+								value: lote.idlote,
+								label: lote.lote,
+								fechafab: lote.fechafab,
+								fechaven: lote.fechaven,
+							};
+						});
+						response(items);
+					},
+					error: function() {
+						response([]);
+					},
+				});
+			},
+			select: function(event, ui) {
+				let lote = ui.item;
+				let input = $(this);
+				let fila = $(this).closest('tr');
+
+				input.val(lote.label);
+				input.attr('data-value', lote.label);
+				input.attr('data-id-lote', lote.value);
+				fila.find('td:nth-child(7)').text(lote.fechafab);
+				fila.find('td:nth-child(8)').text(lote.fechaven);
+				input.trigger('change');
+				return false;
+			},
+		})
+		.autocomplete('widget')
+		.addClass('autocomplete-results custom-autocomplete-results')
+		.css('background-color', '#E9E9E9')
+		.css('list-style-type', 'none')
+		.css('padding', '5px')
+		.on('mouseover', 'li', function() {
+			$(this).css('background-color', '#CBE2F3');
+		})
+		.on('mouseout', 'li', function() {
+			$(this).css('background-color', '#E9E9E9');
+		});
+}
+

@@ -24,4 +24,8 @@ public class LoteService {
     public void eliminarLote(Integer idlote) {
     	loteRepository.deleteById(idlote);
     }
+    
+    public List<Lote> buscarLotesPorTermino(String termino) {
+        return loteRepository.findByLoteContainingIgnoreCase(termino);
+    }
 }

@@ -1,19 +1,16 @@
 $(document).ready(function() {
-  // Función para formatear la fecha en formato dd-mm-yyyy
   function formatDate(fecha) {
     var fechaObj = new Date(fecha);
     var dia = fechaObj.getUTCDate();
     var mes = fechaObj.getUTCMonth() + 1;
     var anio = fechaObj.getUTCFullYear();
-
-    // Asegurarse de que los valores de día y mes tengan dos dígitos
+    
     dia = dia < 10 ? "0" + dia : dia;
     mes = mes < 10 ? "0" + mes : mes;
 
     return dia + "-" + mes + "-" + anio;
   }
 
-  // Función para cargar la lista de lotes en la tabla
   function listarLotes() {
     $.ajax({
       type: "GET",
@@ -27,7 +24,6 @@ $(document).ready(function() {
           var fechaFab = formatDate(value.fechafab);
           var fechaVen = formatDate(value.fechaven);
 
-          // Construir la fila de la tabla utilizando una plantilla literal
           var loteRow = `
             <tr>
               <td>${value.idlote}</td>
@@ -51,7 +47,6 @@ $(document).ready(function() {
     });
   }
 
-  // Función para asignar eventos a los botones de eliminar lote
   function bindDeleteButtonEvents() {
     $(".btneliminarlote").off("click");
 
@@ -67,7 +62,6 @@ $(document).ready(function() {
     $("#btneliminar").off("click");
 
     $("#btneliminar").on("click", function() {
-      // Enviar solicitud AJAX para eliminar el lote
       $.ajax({
         type: "DELETE",
         contentType: "application/json",
@@ -84,7 +78,6 @@ $(document).ready(function() {
     });
   }
 
-  // Evento de clic en el botón "Guardar" del formulario de lote
   $("#btnguardarlote").click(function() {
     var $txtLote = $("#txtlote");
     var $txtFechaFab = $("#txtfechafab");
@@ -110,7 +103,6 @@ $(document).ready(function() {
     }
 
     if (!error) {
-      // Enviar solicitud AJAX para registrar el lote
       $.ajax({
         type: "POST",
         url: "/lote/registrarLote",
@@ -121,8 +113,8 @@ $(document).ready(function() {
         }),
         success: function(resultado) {
           alert(resultado.mensaje);
-          listarLotes(); // Actualizar la lista de lotes después de la inserción
-          $("#modalLote").modal("hide"); // Cerrar el modal
+          listarLotes(); 
+          $("#modalLote").modal("hide"); 
         },
         error: function() {
           console.log("Después de la llamada AJAX (error)");
@@ -132,7 +124,6 @@ $(document).ready(function() {
     }
   });
 
-  // Cargar los lotes en el combobox al cargar la página
   $.ajax({
     type: "GET",
     url: "/lote/listarLotes",
@@ -145,7 +136,7 @@ $(document).ready(function() {
     }
   });
 
-  // Filtrar los datos al hacer clic en el botón buscar
+  
   $("#btnbuscar").click(function() {
     var lote = $("#cmblotes").val();
 
@@ -154,6 +145,6 @@ $(document).ready(function() {
     }).show();
   });
 
-  // Llamar a la función listarLotes para cargar los lotes al cargar la página
+  
   listarLotes();
 });

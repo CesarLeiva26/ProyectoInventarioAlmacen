@@ -45,10 +45,7 @@
 							<li><a class="dropdown-item fw-bolder"th:href="@{/producto/frmproducto}">Producto</a></li>
 							<li><a class="dropdown-item fw-bolder" th:href="@{/entidad/frmentidad}">Entidad</a></li>
 							<li><a class="dropdown-item fw-bolder" th:href="@{/sucursal/frmsucursal}">Sucursal</a></li>
-							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item fw-bolder" th:href="@{/lote/frmlote}">Lote</a></li>
-							<li><a class="dropdown-item fw-bolder" th:href="@{/ubicacion/frmubicacion}">Ubicacion</a></li>
-							<li><a class="dropdown-item fw-bolder" th:href="@{/estado/frmestado}">Estado</a></li>
 						</ul></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle fw-bolder" href="#"
@@ -57,6 +54,8 @@
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<li><a class="dropdown-item fw-bolder"
 								th:href="@{/recepcion/orden_recepcion}">Recepcion</a></li>
+								<li><a class="dropdown-item fw-bolder"
+								th:href="@{/recepcion/orden_recepcion}">Despacho</a></li>
 						</ul>
 					</li>
 					<li class="nav-item dropdown"><a
@@ -65,18 +64,9 @@
 						data-bs-toggle="dropdown" aria-expanded="false">Consultas</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<li><a class="dropdown-item fw-bolder"
-								href="#">Stock por ubicacion</a></li>
+								 th:href="@{/stock/frmstockxubi}">Stock por ubicacion</a></li>
 						</ul></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle fw-bolder" href="#"
-						id="navbarDropdownMenuLink" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false">Reporte</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item fw-bolder"
-								th:href="@{/producto/frmproducto}">Stock</a></li>
-							<li><a class="dropdown-item fw-bolder"
-								th:href="@{/producto/frmproducto}">Ingresos</a></li>
-						</ul></li>
+
 				</ul>
 			</div>
 		</div>

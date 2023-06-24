@@ -1,17 +1,14 @@
-// Función para listar las entidades
 function listarEntidades() {
   $.ajax({
     type: "GET",
     url: "/entidad/listarEntidades",
     dataType: "json",
     success: function(resultado) {
-      // Limpiar la tabla de entidades y el combobox
       $("#tblentidad > tbody").html("");
       var cmbEntidades = $("#cmbentidades");
       cmbEntidades.empty();
 
       $.each(resultado, function(index, value) {
-        // Agregar cada entidad a la tabla
         var entidadRow =
           "<tr>" +
           "<td>" + value.identidad + "</td>" +
@@ -44,7 +41,6 @@ function listarEntidades() {
 
         $("#tblentidad > tbody").append(entidadRow);
 
-        // Agregar cada entidad al combobox
         cmbEntidades.append("<option value='" + value.nombreEntidad + "'>" + value.nombreEntidad + "</option>");
       });
 
@@ -53,7 +49,6 @@ function listarEntidades() {
   });
 }
 
-// Función para vincular los eventos de los botones de eliminar
 function bindDeleteButtonEvents() {
   $(".btneliminarentidad").off("click");
 
@@ -85,7 +80,6 @@ function bindDeleteButtonEvents() {
 }
 
 $(document).ready(function() {
-  // Cargar las entidades en el combobox al cargar la página
   $.ajax({
     type: "GET",
     url: "/entidad/listarEntidades",
@@ -98,7 +92,6 @@ $(document).ready(function() {
     }
   });
 
-  // Filtrar entidades al hacer clic en el botón buscar
   $("#btnbuscar").click(function() {
     var nombre = $("#cmbentidades").val();
 
@@ -107,7 +100,6 @@ $(document).ready(function() {
     }).show();
   });
 
-  // Abrir el modal para actualizar entidad al hacer clic en el botón de actualizar
   $(document).on("click", ".btnactualizarentidad", function() {
     var entityId = $(this).attr("data-identidad");
     var entityName = $(this).attr("data-entidad");
@@ -131,7 +123,6 @@ $(document).ready(function() {
     $("#modalEntidad").modal("show");
   });
 
-  // Abrir el modal para agregar una nueva entidad al hacer clic en el botón de agregar
   $(document).on("click", "#btnagregar", function() {
     $("#txtidentidad").val("");
     $("#txtentidad").val("");
@@ -145,7 +136,6 @@ $(document).ready(function() {
     $("#modalEntidad").modal("show");
   });
 
-  // Guardar una entidad al hacer clic en el botón de guardar
   $(document).on("click", "#btnguardar", function() {
     var entityId = $("#hddidregistroentidad").val();
     var entityName = $("#txtentidad").val();
@@ -178,6 +168,5 @@ $(document).ready(function() {
     $("#modalEntidad").modal("hide");
   });
 
-  // Inicializar la página listando las entidades
   listarEntidades();
 });

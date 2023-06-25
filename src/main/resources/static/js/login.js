@@ -1,4 +1,8 @@
-function login(){
+
+
+
+
+/*function login(){
 	var usuario
 	var password	
 	usuario = document.getElementById("txtusuario").value;
@@ -14,4 +18,4 @@ function login(){
 
 function salir(){
 	window.location.replace("http://localhost:8080/login")
-}
+}*/

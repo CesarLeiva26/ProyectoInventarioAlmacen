@@ -5,7 +5,6 @@ $(document).on("click", "#btnagregar", function(){
 	$("#txtenvase").val("");
 	$("#txtpeso").val("");
 	$("#hddidregistroproducto").val("0");
-
  	$("#cbounidad").empty();
 	$.ajax({
 		type: "GET",
@@ -26,6 +25,7 @@ $(document).on("click", "#btnagregar", function(){
 });
 
 $(document).on("click", ".btnactualizarproducto", function(){
+	$("#txtproducto").val($(this).attr("data-producto"));
 	$("#txtdescripcion").val($(this).attr("data-descripcion"));
 	$("#txtenvase").val($(this).attr("data-envase"));
 	$("#txtpeso").val($(this).attr("data-peso"));
@@ -106,6 +106,7 @@ function ListarProducto(){
 			$.each(resultado, function(index, value){
 				$("#tblproducto > tbody").append("<tr>"+
 						"<td>"+value.idproducto+"</td>"+
+						"<td>"+value.producto+"</td>"+
 						"<td>"+value.descripcion+"</td>"+
 						"<td>"+value.unidad.descripcion+"</td>"+
 						"<td>"+value.envase+"</td>"+
@@ -122,7 +123,7 @@ function ListarProducto(){
 						"<td>"+
 							"<button type='button' class='btn btn-danger btneliminarproducto'"+	
 							" data-idproducto='"+value.idproducto+"'"+
-							" data-descripcion='"+value.descripcion+"'"+
+							" data-producto='"+value.producto+"'"+
 							"><i class='fas fa-trash'></i></button></td>"+							
 						"</tr>")
 			})				

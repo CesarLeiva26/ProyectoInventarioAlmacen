@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
+  
 <meta charset="UTF-8">
 
 <title>ADAMA</title>
@@ -28,6 +29,7 @@
 </style>
 
 </head>
+
 <body>
 
 	<nav th:fragment="menu"
@@ -54,7 +56,7 @@
 							<li><a class="dropdown-item fw-bolder"
 								th:href="@{/usuario/usuario}">Usuario</a></li>
 
-							<li><a class="dropdown-item fw-bolder" th:href="@{/login}">Cerrar
+							<li><a class="dropdown-item fw-bolder" th:href="@{/logout}">Cerrar
 									Sesión</a></li>
 
 
@@ -71,9 +73,18 @@
 							<li><hr class="dropdown-divider"></li>
 							<li><a class="dropdown-item fw-bolder"
 								th:href="@{/sucursal/frmsucursal}">Sucursal</a></li>
-
 							<li><a class="dropdown-item fw-bolder"
 								th:href="@{/lote/frmlote}">Lote</a></li>
+							<li><a class="dropdown-item fw-bolder"
+								th:href="@{/sucursal/frmsucursal}">Sucursal</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item fw-bolder"
+								th:href="@{/lote/frmlote}">Lote</a></li>
+							<li><a class="dropdown-item fw-bolder"
+								th:href="@{/ubicacion/frmubicacion}">Ubicacion</a></li>
+							<li><a class="dropdown-item fw-bolder"
+								th:href="@{/estado/frmestado}">Estado</a></li>
+
 						</ul></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle fw-bolder" href="#"
@@ -91,12 +102,9 @@
 							<li><a class="dropdown-item fw-bolder"
 								th:href="@{/stock/frmstockxubi}">Stock por ubicacion</a></li>
 						</ul></li>
-
 				</ul>
 			</div>
 		</div>
-
-
 	</nav>
 
 

@@ -16,44 +16,52 @@
 					</div>
 
 					<div
-						class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5">
+						class="d-flex align-items-center h-custom-2 px-5 ms-xl-4 mt-2 pt-5 pt-xl-0 mt-xl-n5">
 
-						<form
+						<form method="post" th:action="@{/auth/guardarUsuario}"
 							style="margin-top: 50px; display: flex; flex-wrap: wrap; flex-direction: row-reverse; align-content: stretch; justify-content: space-between;">
 							<div class="form-outline col-5 mb-4">
-								<label class="form-label" for="form2Example28">Nombre(s)</label>
-								<input type="password" id="form2Example28"
-									class="form-control form-control-lg" />
+								<label class="form-label" for=nomusuario>Id de logeuo(s)</label>
+								<input type="text" id="nomusuario" name="nomusuario"
+									class="form-control form-control-lg" required />
+							</div>
+							<div class="form-outline col-5 mb-4">
+								<label class="form-label" for="nombres">Nombre(s)</label> <input
+									type="text" id="nombres" name="nombres"
+									class="form-control form-control-lg" required />
+							</div>
+
+							<div class="form-outline col-5 mb-4">
+								<label class="form-label" for="apellidos">Apellido(s)</label> <input
+									type="text" id="apellidos" name="apellidos"
+									class="form-control form-control-lg" required />
 							</div>
 
 
 							<div class="form-outline col-5 mb-4">
-								<label class="form-label" for="form2Example28">Apellido(s)</label>
-								<input type="password" id="form2Example28"
-									class="form-control form-control-lg" />
-							</div>
-
-
-							<div class="form-outline col-5 mb-4">
-								<label class="form-label" for="form2Example18">Correo</label> <input
-									type="email" id="form2Example18"
-									class="form-control form-control-lg" />
+								<label class="form-label" for="email">Correo</label> <input
+									type="email" id="email" name="email"
+									class="form-control form-control-lg" required />
 							</div>
 							<div class="form-outline col-5 mb-4">
-								<label class="form-label" for="form2Example28">Contraseña</label>
-								<input type="password" id="form2Example28"
-									class="form-control form-control-lg" />
+								<label class="form-label" for="password">Contraseña</label> <input
+									type="password" id="password" name="password"
+									class="form-control form-control-lg" required />
 							</div>
+							<div th:if="${registroCorrecto}" class="alert alert-success"
+								role="alert">¡Registro exitoso!</div>
+
+
 
 							<div class="pt-1 col-12 mb-12">
-								<button class="btn btn-success btn-lg btn-block" type="button">Registrar
+								<button class="btn btn-success btn-lg btn-block" type="submit">Registrar
 								</button>
 							</div>
 
 							<div class="pt-1 col-12 mb-12">
-								>
+
 								<p>
-									¿Ya tienes una cuenta ? <a href="#!"
+									¿Ya tienes una cuenta? <a th:href="@{/auth/login}"
 										class="link-info text-success">Ingresa aquì</a>
 								</p>
 							</div>

@@ -4,6 +4,7 @@ CREATE TABLE  rol (
 	idRol INT PRIMARY KEY AUTO_INCREMENT, 
 	nombreRol varchar(20)
 );
+insert into rol (nombrerol) values("selecione") ,("Administrador"),("Digitador"),("Almacenero")
 
 CREATE TABLE  usuario (
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT, 
@@ -22,25 +23,8 @@ CREATE TABLE unidad	(
  descripcion varchar(30)
 );
 
-CREATE TABLE  producto (
-  idProducto INT PRIMARY KEY AUTO_INCREMENT ,
-  descripcion VARCHAR(255),
-  idUnidad INT,
-  foreign key (idunidad) references unidad(idUnidad),
-  envase VARCHAR(50),
-  peso DECIMAL(10, 2)
-);
 
-CREATE TABLE  entidad (
-    IdEntidad INT auto_increment PRIMARY KEY,
-     Entidad varchar(15) ,
-     nombreEntidad varchar(40),
-     tipo varchar(30),
-     direccion varchar(30),
-     correo varchar(50),
-     telefono varchar(10),
-     notas varchar(100)
-) ;
+
 
 INSERT INTO entidad (Entidad, nombreEntidad, tipo, direccion, correo, telefono, notas)
 VALUES 

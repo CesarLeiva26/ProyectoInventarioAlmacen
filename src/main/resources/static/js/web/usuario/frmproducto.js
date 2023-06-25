@@ -3,21 +3,18 @@ $(document).on("click", "#btnagregar", function(){
 	$("#txtdescripcion").val("");
 	$("#hddidregistroproducto").val("0");
 	$("#cbopallet").empty();
-	$.ajax({
-		type: "GET",
-		url: "/pallet/listarPallets",
-		dataType: "json",
-		success: function(resultado){
-			if(resultado.length > 0){
-				$.each(resultado, function(index, value){
-					$("#cbopallet").append(
-							`<option value="${value.idpallet}">
-								${value.descripcion}</option>`
-							);
-				})
-			}			
+
+	cargarPallets(function(resultado) {
+		if (resultado.length > 0) {
+			$.each(resultado, function(index, value){
+				$("#cbopallet").append(
+					`<option value="${value.idpallet}">
+						${value.descripcion}</option>`
+				);
+			});
 		}
-	})
+	});
+
 	$("#modalProducto").modal("show");
 });
 
@@ -27,67 +24,85 @@ $(document).on("click", ".btnactualizarproducto", function(){
 	$("#hddidregistroproducto").val($(this).attr("data-idproducto"));
 	$("#cbopallet").empty();
 	var idpallet = $(this).attr("data-idpallet");
-	$.ajax({
-		type: "GET",
-		url: "/pallet/listarPallets",
-		dataType: "json",
-		success: function(resultado){
-			if(resultado.length > 0){
-				$.each(resultado, function(index, value){
-					$("#cbopallet").append(
-							`<option value="${value.idpallet}">
-								${value.descripcion}</option>`
-							);
-				})
-				$("#cbopallet").val(idpallet);
-			}			
+
+	cargarPallets(function(resultado) {
+		if (resultado.length > 0) {
+			$.each(resultado, function(index, value){
+				$("#cbopallet").append(
+					`<option value="${value.idpallet}">
+						${value.descripcion}</option>`
+				);
+			});
+			$("#cbopallet").val(idpallet);
 		}
-	})
+	});
+
 	$("#modalProducto").modal("show");
 });
 
 $(document).on("click", "#btnguardar", function(){
+	var productoData = {
+		idproducto: $("#hddidregistroproducto").val(),
+		nombre: $("#txtnombre").val(),
+		descripcion: $("#txtdescripcion").val(),
+		envase: $("#txtenvase").val(),
+		peso: $("#txtpeso").val(),
+		idunidad: $("#cbounidad").val()
+	};
+
 	$.ajax({
 		type: "POST",
 		url: "/producto/registrarProducto",
 		contentType: "application/json",
-		data: JSON.stringify({
-			idproducto: $("#hddidregistroproducto").val(),
-			nombre: $("#txtnombre").val(),
-			descripcion: $("#txtdescripcion").val(),
-			idpallet: $("#cbopallet").val()
-		}),
+		data: JSON.stringify(productoData),
 		success: function(resultado){
 			alert(resultado.mensaje);
-			ListarProducto();
+			ListarProducto(); // Llamar a la función para actualizar la tabla
 		}
 	});
+
 	$("#modalProducto").modal("hide");
-})
+});
 
 $(document).on("click", ".btneliminarproducto", function(){
-	$("#hddideliminarproducto").val("");
 	$("#hddideliminarproducto").val($(this).attr("data-idproducto"));
-	$("#mensajeeliminar").text("¿Seguro de Eliminar el "+ 
-			$(this).attr("data-nombre")+"?");
+	$("#mensajeeliminar").text("¿Seguro de Eliminar el " +
+			$(this).attr("data-nombre") + "?");
 	$("#modalEliminarProducto").modal("show");
-})
+});
 
 $(document).on("click", "#btneliminar", function(){
+	var productoId = $("#hddideliminarproducto").val();
+
 	$.ajax({
 		type: "DELETE",
 		contentType: 'application/json',
 		url: "/producto/eliminarProducto",
 		data: JSON.stringify({
-		idproducto: $("#hddideliminarproducto").val()
+			idproducto: productoId
 		}),
 		success: function(resultado){
 			alert(resultado.mensaje);
 			ListarProducto();
+		},
+		error: function(xhr, status, error) {
+			alert("Error al eliminar el producto. Por favor, inténtelo de nuevo.");
 		}
-	})
+	});
+
 	$("#modalEliminarProducto").modal("hide");
-})
+});
+
+function cargarPallets(callback) {
+	$.ajax({
+		type: "GET",
+		url: "/pallet/listarPallets",
+		dataType: "json",
+		success: function(resultado){
+			callback(resultado);
+		}
+	});
+}
 
 function ListarProducto(){
 	$.ajax({
@@ -95,9 +110,12 @@ function ListarProducto(){
 		url: "/producto/listarProductos",
 		dataType: "json",
 		success: function(resultado){
-			$("#tblproducto > tbody").html("");
-			$.each(resultado, function(index, value){
-				$("#tblproducto > tbody").append("<tr>"+
+			var tableBody = $("#tblproducto > tbody");
+			tableBody.empty();
+
+			if (resultado.length > 0) {
+				$.each(resultado, function(index, value){
+					var row = "<tr>"+
 						"<td>"+value.idproducto+"</td>"+
 						"<td>"+value.nombre+"</td>"+
 						"<td>"+value.descripcion+"</td>"+
@@ -114,8 +132,11 @@ function ListarProducto(){
 							" data-idproducto='"+value.idproducto+"'"+
 							" data-nombre='"+value.nombre+"'"+
 							"><i class='fas fa-trash'></i></button></td>"+							
-						"</tr>")
-			})				
+						"</tr>";
+
+					tableBody.append(row);
+				});
+			}
 		}
-	})
+	});
 }

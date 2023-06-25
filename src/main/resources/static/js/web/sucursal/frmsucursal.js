@@ -98,11 +98,8 @@ function listarSucursal() {
 					" data-notas='" + value.notas + "'" +
 					"><i class='fas fa-pen'></i></button>" +
 					"</td>" +
-					"<td>" +
-					"<button type='button' class='btn btn-danger btneliminarsucursal'" +
 					" data-idsucursal='" + value.idsucursal + "'" +
 					" data-nomsucursal='" + value.nomsucursal + "'" +
-					"><i class='fas fa-trash'></i></button>" +
 					"</td>" +
 					"</tr>"
 				);

@@ -187,7 +187,6 @@ function listarusandoajax() {
 						"data-usuario='"+value.usuario+"'"+
 						"data-correo='"+value.correo+"'"+
 						"data-telefono='"+value.telefono+"'"+
-						"><i class='fas fa-pencil-alt'></i> </button>"+
 					"</td>"+
 					"<td>"+
 						"<button type='button' class='btn btn-danger btneliminarpregunta'"+	

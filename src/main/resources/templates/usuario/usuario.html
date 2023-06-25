@@ -14,16 +14,7 @@
             <span class="h1 fw-bold mb-0">Mantenimiento de Usuarios</span>
             <br /><br />
             <div class="d-flex justify-content-end">
-                <div class="me-3">
-                    <button id="mostrarmodalguardar" type="button" class="btn btn-dark fw-bolder">
-                        <i class="fas fa-save"></i> Agregar Usuario
-                    </button>
-                </div>
-                <div class="me-3">
-                    <button id="mustramodalfotoPerfil" type="button" class="btn btn-primary">
-                        Cargar foto de perfil
-                    </button>
-                </div>
+
             </div>
         </div>
         <div class="modal fade" id="modalregistrousuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -61,61 +52,16 @@
 									placeholder="Buscar usuario" aria-label="Search" required
 									pattern="[1-9][0-9]*" />
 							</div>
-							<div>
-								<button type="submit" class="boton-personalizado">buscar
-									usuario</button>
-							</div>
 
 
 						</div>
 
 					</form>
 
-					<div>
-						<button id="mustramodalfotoPerfil" type="button"
-							class="boton-personalizado">Cargar foto de perfil</button>
-					</div>
-
-					<div th:if="${cajaalerta}"
-						class="alert alert-danger boton-mensajeerror"
-						style="height: 2.5rem;">
-						<span th:text="${mensaje}"> </span>
-
-					</div>
-
-
-
 				</div>
 
 
 			</div>
-			<form th:action="@{/usuario/guadarimagen}" th:method="post"
-				enctype="multipart/form-data">
-				<div id="cajaCargarImagen" class="modal" tabindex="-1">
-					<div class="modal-dialog card">
-						<div class="modal-content">
-							<div class="modal-header"></div>
-							<div class="modal-body">
-								<input class="form-control" type="file" name="file"
-									accept="image/*"> <label> Seleccione el usuario
-									a asignar imagen</label> <select class="form-control" id="listausuario"
-									name="idusuario" style="width: 8rem;">
-									<option th:value="0">Seleccione un rol</option>
-									<option th:each="lista: ${listausuario}"
-										th:value="${lista.idusuario}" th:text="${lista.nombre}"></option>
-								</select>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary">Guardar</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-
-
 
 
 
@@ -144,18 +90,6 @@
 						<td th:text="${lista.telefono}"></td>
 
 						<td>
-							<button type="button" class="btn btn-success btnactualizar"
-								th:data-idusuario="${lista.idusuario}"
-								th:data-idrol="${lista.rol.idrol}"
-								th:data-nombre="${lista.nombre}"
-								th:data-apellidos="${lista.apellidos}"
-								th:data-usuario="${lista.usuario}"
-								th:data-correo="${lista.correo}"
-								th:data-telefono="${lista.telefono}">
-								<i class="fas fa-pencil-alt"></i>
-
-
-							</button>
 
 						</td>
 						<td>

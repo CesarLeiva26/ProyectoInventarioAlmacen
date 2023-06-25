@@ -42,7 +42,7 @@ public class SecurityConfig {
 		.formLogin().loginPage("/auth/login")
 		.usernameParameter("txtusuario")
 		.passwordParameter("txtpassword")
-		.defaultSuccessUrl("/home")
+		.defaultSuccessUrl("/usuario/usuario")
 		.failureUrl("/login?error=true")
 		.and()
 		.logout()

@@ -1,6 +1,5 @@
 package cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd;
 
-import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,21 +11,14 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "lote")
-public class Lote {
-
+@Table(name = "estado")
+public class Estado {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idlote")
-	private Integer idlote;
+	@Column(name = "idestado")
+	private Integer idestado;
 
-	@Column(name = "lote")
-	private String lote;
-
-	@Column(name = "fechafab")
-	private Date fechafab;
-	
-	@Column(name = "fechaven")
-	private Date fechaven;
+	@Column(name = "nomestado")
+	private String nomstado;
 
 }

@@ -60,6 +60,7 @@ $('#orden_repecion').on('submit', async function(event) {
 	event.preventDefault();
 	let detalleRepcion = await captureDataFromRows();
 	$('#orden_repecion')[0].reset();
+	window.location.href = "http://localhost:8080/recepcion/orden_recepcion";
 });
 
 async function captureDataFromRows() {

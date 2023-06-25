@@ -26,6 +26,8 @@ public class SecurityConfig {
 	public SecurityFilterChain 
 		configure(HttpSecurity http) throws Exception{
 		http
+		.csrf().disable()
+
 		.authorizeHttpRequests()
 		.antMatchers("/auth/login",
 				"/auth/registrar",
@@ -42,7 +44,7 @@ public class SecurityConfig {
 		.formLogin().loginPage("/auth/login")
 		.usernameParameter("txtusuario")
 		.passwordParameter("txtpassword")
-		.defaultSuccessUrl("/usuario/usuario")
+		.defaultSuccessUrl("/home")
 		.failureUrl("/login?error=true")
 		.and()
 		.logout()

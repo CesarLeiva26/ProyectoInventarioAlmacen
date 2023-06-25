@@ -67,6 +67,7 @@ $(document).on("click", "#btnguardar", function(){
 		success: function(resultado){
 			alert(resultado.mensaje);
 			ListarProducto();
+			
 		}
 	});
 	$("#modalProducto").modal("hide");

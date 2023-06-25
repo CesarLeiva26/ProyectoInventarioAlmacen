@@ -14,16 +14,7 @@
             <span class="h1 fw-bold mb-0">Mantenimiento de Usuarios</span>
             <br /><br />
             <div class="d-flex justify-content-end">
-                <div class="me-3">
-                    <button id="mostrarmodalguardar" type="button" class="btn btn-dark fw-bolder">
-                        <i class="fas fa-save"></i> Agregar Usuario
-                    </button>
-                </div>
-                <div class="me-3">
-                    <button id="mustramodalfotoPerfil" type="button" class="btn btn-primary">
-                        Cargar foto de perfil
-                    </button>
-                </div>
+             
             </div>
         </div>
         <div class="modal fade" id="modalregistrousuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -71,10 +62,7 @@
 
 					</form>
 
-					<div>
-						<button id="mustramodalfotoPerfil" type="button"
-							class="boton-personalizado">Cargar foto de perfil</button>
-					</div>
+					
 
 					<div th:if="${cajaalerta}"
 						class="alert alert-danger boton-mensajeerror"

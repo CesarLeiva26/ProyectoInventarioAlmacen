@@ -8,110 +8,128 @@
 	<script th:src="@{/js/web/sucursal/frmsucursal.js}"
 		type="text/javascript"></script>
 	<nav th:insert="layout::menu"></nav>
-	<br>
-	<div align="center">
-	<i class='fa fa-leaf  fa-2x  mt-xl-4 text-success'></i> <span
-					class="h1 fw-bold mb-0">Mantenimiento de sucursal</span><br/><br/>
-	<button type="button" id="btnagregar" class="btn btn-dark fw-bolder">
-		<i class="fas fa-save"></i> Agregar Sucursal
-	</button>
-</div>
- <br/>
-<table class="table table-dark table-hover" id="tblsucursal">
-	<thead align="center">
-		<tr>
-			<th scope="col">Id</th>
-			<th scope="col">Nombre</th>
-			<th scope="col">Entidad</th>
-			<th scope="col">Notas</th>
-			<th scope="col">Actualizar</th>
-			<th scope="col">Eliminar</th>
-		</tr>
-	</thead>
-	<tbody align="center" class="fw-bolder">
-		<tr th:each="sucursal : ${listasucursales}">
-			<td th:text="${sucursal.idsucursal}"></td>
-			<td th:text="${sucursal.nomsucursal}"></td>
-			<td th:text="${sucursal.entidad.nombreEntidad}"></td>
-			<td th:text="${sucursal.notas}"></td>
-			<td>
-			    <button type="button" class="btn btn-success btnactualizarsucursal"
-			            th:data-idsucursal="${sucursal.idsucursal}"
-			            th:data-nomsucursal="${sucursal.nomsucursal}"
-			            th:data-notas="${sucursal.notas}"
-			            th:data-identidad="${sucursal.entidad.identidad}">
-			        <i class="fas fa-pencil-alt"></i>
-			    </button>
-			</td>
-			
-			<td>
-				<button type="button" class="btn btn-danger btneliminaridsucursal"
-						th:data-idsucursal="${sucursal.idsucursal}">
-						<i class="fas fa-trash-alt"></i>
-				</button>
-			</td>
-		</tr>			
-	</tbody>
-</table>
-
-
-
-<!-- Model Registro -->
-<div class="modal fade" id="modalSucursal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">Mantenimiento de Sucursal</h1>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<div class="modal-body">
-				<div class="mb-3">
-					<label for="txtnomsucursal" class="form-label fw-bolder">NombreSucursal</label>
-					<input type="text" class="form-control fw-bolder" id="txtnomsucursal" placeholder="Ingresa Nombre">
-				</div>
-				<div class="mb-3">
-						<label for="cboentidad" class="form-label fw-bolder">
-							Entidad</label> <select class="form-control fw-bolder" id="cboentidad"></select>
-					</div>
-				<div class="mb-3">
-					<label for="txtnotas" class="form-label fw-bolder">Notas</label>
-					<textarea class="form-control fw-bolder" id="txtnotas" rows="3" placeholder="Ingresa Notas"></textarea>
-				</div>
-				<input type="hidden" id="hddidregistrosucursal">
-			</div>
-			<div class="modal-footer d-flex justify-content-center">
-				<button type="button" class="btn btn-dark fw-bolder" data-bs-dismiss="modal">Salir</button>
-				<button type="button" class="btn btn-danger fw-bolder" id="btnguardar">Guardar</button>
-			</div>
+	
+<div th:fragment="Modal_user_create" class="container p-3">
+	<div th:fragment="Modal_user_create" class="container p-3">
+		<div class="text-center">
+			<i class='fa fa-leaf  fa-2x text-success'></i> <span
+				class="h2 fw-bold mb-0">Mantenimiento de Sucursal</span>
 		</div>
+
+		<button type="button" id="btnagregar" class="btn btn-dark fw-bolder">
+			<i class="fas fa-save"></i> Agregar Sucursal
+		</button>
+
+	</div>
+	<br>
+
+	<div style="overflow: auto; height: 500px;">
+		<table class="table table-striped table-hover sticky-top"
+			id="tblsucursal" data-filterable="true">
+			<thead class="table-dark text-center sticky-top">
+
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Entidad</th>
+					<th scope="col">Notas</th>
+					<th scope="col">Actualizar</th>
+					<th scope="col">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody align="center" class="fw-bolder">
+				<tr th:each="sucursal : ${listasucursales}">
+					<td th:text="${sucursal.idsucursal}"></td>
+					<td th:text="${sucursal.nomsucursal}"></td>
+					<td th:text="${sucursal.entidad.nombreEntidad}"></td>
+					<td th:text="${sucursal.notas}"></td>
+					<td>
+						<button type="button"
+							class="btn btn-success btnactualizarsucursal"
+							th:data-idsucursal="${sucursal.idsucursal}"
+							th:data-nomsucursal="${sucursal.nomsucursal}"
+							th:data-notas="${sucursal.notas}"
+							th:data-identidad="${sucursal.entidad.identidad}">
+							<i class="fas fa-pencil-alt"></i>
+						</button>
+					</td>
+
+					<td>
+						<button type="button" class="btn btn-danger btneliminaridsucursal"
+							th:data-idsucursal="${sucursal.idsucursal}">
+							<i class="fas fa-trash-alt"></i>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
 
+	<!-- Model Registro -->
+	<div class="modal fade" id="modalSucursal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">Mantenimiento
+						de Sucursal</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="mb-3">
+						<label for="txtnomsucursal" class="form-label fw-bolder">NombreSucursal</label>
+						<input type="text" class="form-control fw-bolder"
+							id="txtnomsucursal" placeholder="Ingresa Nombre">
+					</div>
+					<div class="mb-3">
+						<label for="cboentidad" class="form-label fw-bolder">
+							Entidad</label> <select class="form-control fw-bolder" id="cboentidad"></select>
+					</div>
+					<div class="mb-3">
+						<label for="txtnotas" class="form-label fw-bolder">Notas</label>
+						<textarea class="form-control fw-bolder" id="txtnotas" rows="3"
+							placeholder="Ingresa Notas"></textarea>
+					</div>
+					<input type="hidden" id="hddidregistrosucursal">
+				</div>
+				<div class="modal-footer d-flex justify-content-center">
+					<button type="button" class="btn btn-dark fw-bolder"
+						data-bs-dismiss="modal">Salir</button>
+					<button type="button" class="btn btn-danger fw-bolder"
+						id="btnguardar">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-<!-- Model Eliminar -->
 
-<div class="modal fade" id="modalEliminarSucursal" tabindex="-1"
-    aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">
-                    Eliminar Sucursal</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body fw-bolder">
-                <label id="mensajeeliminar"></label> <input type="hidden"
-                    id="hddideliminarsucursal" value="0">
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-                <button type="button"class="btn btn-dark fw-bolder"
-                    data-bs-dismiss="modal">Salir</button>
-                <button type="button" class="btn btn-danger fw-bolder" id="btneliminar">Eliminar</button>
-            </div>
-        </div>
-    </div>
-</div>
+	<!-- Model Eliminar -->
+
+	<div class="modal fade" id="modalEliminarSucursal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5 fw-bolder" id="exampleModalLabel">
+						Eliminar Sucursal</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body fw-bolder">
+					<label id="mensajeeliminar"></label> <input type="hidden"
+						id="hddideliminarsucursal" value="0">
+				</div>
+				<div class="modal-footer d-flex justify-content-center">
+					<button type="button" class="btn btn-dark fw-bolder"
+						data-bs-dismiss="modal">Salir</button>
+					<button type="button" class="btn btn-danger fw-bolder"
+						id="btneliminar">Eliminar</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

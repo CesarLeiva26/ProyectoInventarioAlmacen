@@ -1,31 +1,39 @@
 package cibertec.edu.pe.ProyectoInventarioAlmacen.model.bd;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.Data;
 
-import javax.persistence.*;
-
+@Data
 @Entity
 @Table(name = "stock")
-@Data
 public class Stock {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idstock")
 	private Integer idstock;
-	
-	@Column(name = "idproducto")
-	private Integer idproducto;
-	
-	@Column(name = "idubicacion")
-	private Integer idubicacion;
-	
-	@Column(name = "idlote")
-	private Integer idlote;
-	
+
+	@ManyToOne
+	@JoinColumn(name ="idproducto")
+	private Producto producto;
+
 	@Column(name = "cantidad")
-	private Integer cantidad;
-	
-	@Column(name = "idestado")
-	private Integer idestado;
+	private int cantidad;
+	 
+	@ManyToOne
+	@JoinColumn(name ="idubicacion")
+	private Ubicacion ubicacion;	    
+
+	@ManyToOne
+	@JoinColumn(name ="idlote")
+	private Lote lote;	    
+	    
+	@ManyToOne
+	@JoinColumn(name ="idestado")
+	private Estado estado;
 }

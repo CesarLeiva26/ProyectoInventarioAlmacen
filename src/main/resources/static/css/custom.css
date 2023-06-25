@@ -15,7 +15,23 @@
 
 .body_dashboard {
 	background-repeat: no-repeat;
-	 background-size: cover;
+	background-size: cover;
 	background-image:
 		url("https://cdn.pixabay.com/photo/2019/09/12/06/05/beet-4470670_1280.jpg");
+}
+
+.ui-helper-hidden-accessible {
+	display: none;
+}
+
+.custom-autocomplete-results {
+  width: 300px;
+  margin-top:15px;
+  max-width: 100%;
+  max-height:300px; 
+  overflow:auto;
+}
+
+.custom-autocomplete-results li {
+  /* Estilos adicionales para los elementos de la lista */
 }

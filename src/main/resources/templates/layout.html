@@ -1,24 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
-	<meta charset="UTF-8">
-	
-	<title>ADAMA</title>
-	<link  th:href="@{/css/usuarioestilos/usuario.css}" type="text/css" rel="stylesheet">
-		<link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet">
-	<link th:href="@{/css/fontawesome/all.css}" rel="stylesheet">
-	<script th:src="@{/js/bootstrap/bootstrap.bundle.js}"
-		type="text/javascript"></script>
-	<script th:src="@{/js/jquery/jquery.js}" type="text/javascript"></script>
+<meta charset="UTF-8">
+
+<title>ADAMA</title>
+<link th:href="@{/css/usuarioestilos/usuario.css}" type="text/css"
+	rel="stylesheet">
+<link th:href="@{/css/bootstrap/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{/css/fontawesome/all.css}" rel="stylesheet">
+<script th:src="@{/js/bootstrap/bootstrap.bundle.js}"
+	type="text/javascript"></script>
+<script th:src="@{/js/jquery/jquery.js}" type="text/javascript"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link th:href="@{/css/custom.css}" rel="stylesheet">
+
+<style>
+/* Cambiar color de las letras a blanco y aplicar negrita */
+.navbar-nav .nav-link {
+	color: white;
+	font-weight: bold;
+}
+
+/* Efecto hover */
+.navbar-nav .nav-link:hover {
+	color: black; /* Cambia el color a tu elección */
+}
+</style>
 
 </head>
 <body>
 
-	<nav th:fragment="menu" class="navbar navbar-expand-lg navbar-dark bg-success">
+	<nav th:fragment="menu"
+		class="navbar navbar-expand-lg navbar-dark bg-success">
 		<div class="container-fluid">
-        <a class="navbar-brand fw-bolder" href="#">
-            <img src="../img/logo.svg" alt="Logo" style="height: 35px; margin-left: 110px;">
-        </a>
+			<a class="navbar-brand fw-bolder" href="#"> <img
+				src="../img/logo.svg" alt="Logo"
+				style="height: 35px; margin-left: 110px;">
+			</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -33,22 +51,29 @@
 						id="navbarDropdownMenuLink" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false">Sesion</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item fw-bolder" th:href="@{/usuario/usuario}">Usuario</a></li> 
-							<li><a class="dropdown-item fw-bolder" th:href="@{/login}">Cerrar Sesión</a></li>
- 
+							<li><a class="dropdown-item fw-bolder"
+								th:href="@{/usuario/usuario}">Usuario</a></li>
+
+							<li><a class="dropdown-item fw-bolder" th:href="@{/login}">Cerrar
+									Sesión</a></li>
+
+
 						</ul></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle fw-bolder" href="#"
 						id="navbarDropdownMenuLink" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false">Mantenciones</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item fw-bolder"th:href="@{/producto/frmproducto}">Producto</a></li>
-							<li><a class="dropdown-item fw-bolder" th:href="@{/entidad/frmentidad}">Entidad</a></li>
-							<li><a class="dropdown-item fw-bolder" th:href="@{/sucursal/frmsucursal}">Sucursal</a></li>
+							<li><a class="dropdown-item fw-bolder"
+								th:href="@{/producto/frmproducto}">Producto</a></li>
+							<li><a class="dropdown-item fw-bolder"
+								th:href="@{/entidad/frmentidad}">Entidad</a></li>
 							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item fw-bolder" th:href="@{/lote/frmlote}">Lote</a></li>
-							<li><a class="dropdown-item fw-bolder" th:href="@{/ubicacion/frmubicacion}">Ubicacion</a></li>
-							<li><a class="dropdown-item fw-bolder" th:href="@{/estado/frmestado}">Estado</a></li>
+							<li><a class="dropdown-item fw-bolder"
+								th:href="@{/sucursal/frmsucursal}">Sucursal</a></li>
+
+							<li><a class="dropdown-item fw-bolder"
+								th:href="@{/lote/frmlote}">Lote</a></li>
 						</ul></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle fw-bolder" href="#"
@@ -57,38 +82,33 @@
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<li><a class="dropdown-item fw-bolder"
 								th:href="@{/recepcion/orden_recepcion}">Recepcion</a></li>
-						</ul>
-					</li>
+						</ul></li>
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle fw-bolder" href="#"
 						id="navbarDropdownMenuLink" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false">Consultas</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 							<li><a class="dropdown-item fw-bolder"
-								href="#">Stock por ubicacion</a></li>
+								th:href="@{/stock/frmstockxubi}">Stock por ubicacion</a></li>
 						</ul></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle fw-bolder" href="#"
-						id="navbarDropdownMenuLink" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false">Reporte</a>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<li><a class="dropdown-item fw-bolder"
-								th:href="@{/producto/frmproducto}">Stock</a></li>
-							<li><a class="dropdown-item fw-bolder"
-								th:href="@{/producto/frmproducto}">Ingresos</a></li>
-						</ul></li>
+
 				</ul>
 			</div>
 		</div>
-	</nav>
-	
 
-	
-	<footer th:fragment="layout" class="border-top footer text-muted fixed-bottom bg-success" >
-  <div class="container d-flex align-items-center justify-content my-2 fw-bolder" style="color: white;">
-    <span>Copyright © ADAMA</span>
-  </div>
-</footer>
+
+	</nav>
+
+
+
+	<footer th:fragment="layout"
+		class="border-top footer text-muted fixed-bottom bg-success">
+		<div
+			class="container d-flex align-items-center justify-content my-2 fw-bolder"
+			style="color: white;">
+			<span>Copyright © ADAMA</span>
+		</div>
+	</footer>
 
 
 

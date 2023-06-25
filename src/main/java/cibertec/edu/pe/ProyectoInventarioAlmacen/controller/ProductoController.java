@@ -41,6 +41,7 @@ public class ProductoController {
 			if(productoRequest.getIdproducto() > 0) {
 				objproducto.setIdproducto(productoRequest.getIdproducto());
 			}
+			objproducto.setProducto(productoRequest.getProducto());
 	        objproducto.setDescripcion(productoRequest.getDescripcion());
 	        objproducto.setEnvase(productoRequest.getEnvase());
 	        objproducto.setPeso(productoRequest.getPeso());

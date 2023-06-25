@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout::head">
+</head>
+
+<body>
+    <script th:src="@{/js/web/usuario/fotoperfil.js}" type="text/javascript"></script>
+    <script th:src="@{/js/web/usuario/usuario.js}" type="text/javascript"></script>
+    <nav th:insert="layout::menu"></nav>
+
+    <div th:fragment="Modal_user_create" class="container p-4">
+        <div class="text-center">
+            <i class='fa fa-leaf fa-2x mt-xl-4 text-success'></i>
+            <span class="h1 fw-bold mb-0">Mantenimiento de Usuarios</span>
+            <br /><br />
+            <div class="d-flex justify-content-end">
+                <div class="me-3">
+                    <button id="mostrarmodalguardar" type="button" class="btn btn-dark fw-bolder">
+                        <i class="fas fa-save"></i> Agregar Usuario
+                    </button>
+                </div>
+                <div class="me-3">
+                    <button id="mustramodalfotoPerfil" type="button" class="btn btn-primary">
+                        Cargar foto de perfil
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalregistrousuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <!-- Modal content... -->
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="d-flex" th:if="${usuarioporid}">
+            <div class="card d-flex justify-content-center align-items-center" style="height: 15rem; width: 10rem;">
+                <img class="img-fluid" alt="Imagen" th:src="@{'/img/usuariosPerfiles/' + ${usuarioporid.idusuario} + '.jpg'}">
+            </div>	
+            <div class="card body px-3">
+                <ul>
+                    <li>cod usuario: <span th:text="${usuarioporid.idusuario}"></span></li>
+                    <li>Rol: <span th:text="${usuarioporid.rol.nombrerol}"></span></li>
+                    <li>Nombre: <span th:text="${usuarioporid.nombre}"></span></li>
+                    <li>Apellidos: <span th:text="${usuarioporid.apellidos}"></span></li>
+                    <li>usuario: <span th:text="${usuarioporid.usuario}"></span></li>
+                    <li>Correo: <span th:text="${usuarioporid.correo}"></span></li>
+                    <li>Telefono: <span th:text="${usuarioporid.telefono}"></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+		<div class="container p-5">
+			<div class="form-outline search_users">
+				<div class="d-flex">
+					<form th:action="@{/usuario/usuario}" th:method="post">
+						<div class="d-flex">
+							<div>
+								<input name="idusuario" type="number" id="form1"
+									class="form-control boton-personalizado"
+									placeholder="Buscar usuario" aria-label="Search" required
+									pattern="[1-9][0-9]*" />
+							</div>
+							<div>
+								<button type="submit" class="boton-personalizado">buscar
+									usuario</button>
+							</div>
+
+
+						</div>
+
+					</form>
+
+					<div>
+						<button id="mustramodalfotoPerfil" type="button"
+							class="boton-personalizado">Cargar foto de perfil</button>
+					</div>
+
+					<div th:if="${cajaalerta}"
+						class="alert alert-danger boton-mensajeerror"
+						style="height: 2.5rem;">
+						<span th:text="${mensaje}"> </span>
+
+					</div>
+
+
+
+				</div>
+
+
+			</div>
+			<form th:action="@{/usuario/guadarimagen}" th:method="post"
+				enctype="multipart/form-data">
+				<div id="cajaCargarImagen" class="modal" tabindex="-1">
+					<div class="modal-dialog card">
+						<div class="modal-content">
+							<div class="modal-header"></div>
+							<div class="modal-body">
+								<input class="form-control" type="file" name="file"
+									accept="image/*"> <label> Seleccione el usuario
+									a asignar imagen</label> <select class="form-control" id="listausuario"
+									name="idusuario" style="width: 8rem;">
+									<option th:value="0">Seleccione un rol</option>
+									<option th:each="lista: ${listausuario}"
+										th:value="${lista.idusuario}" th:text="${lista.nombre}"></option>
+								</select>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Guardar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+
+
+
+
+
+			<table id="tbllistausuarios" class="table">
+				<thead class="table-dark">
+					<tr>
+						<th scope="col">Id usuario</th>
+						<th scope="col">Rol</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Apellidos</th>
+						<th scope="col">Usuario</th>
+						<th scope="col">Correo</th>
+						<th scope="col">Telefono</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="lista:${listausuario}">
+						<td th:text="${lista.idusuario}">
+						<td th:text="${lista.rol.nombrerol}"></td>
+						<td th:text="${lista.nombre}"></td>
+						<td th:text="${lista.apellidos}"></td>
+						<td th:text="${lista.usuario}"></td>
+						<td th:text="${lista.correo}"></td>
+						<td th:text="${lista.telefono}"></td>
+
+						<td>
+							<button type="button" class="btn btn-success btnactualizar"
+								th:data-idusuario="${lista.idusuario}"
+								th:data-idrol="${lista.rol.idrol}"
+								th:data-nombre="${lista.nombre}"
+								th:data-apellidos="${lista.apellidos}"
+								th:data-usuario="${lista.usuario}"
+								th:data-correo="${lista.correo}"
+								th:data-telefono="${lista.telefono}">
+								<i class="fas fa-pencil-alt"></i>
+
+
+							</button>
+
+						</td>
+						<td>
+							<button type="button" id="eliminarusuario"
+								class="btn btn-danger btneliminarpregunta"
+								th:data-idusuario="${lista.idusuario}"
+								th:data-nombre="${lista.nombre}">
+								<i class="fas fa-trash"></i>
+							</button>
+
+						</td>
+						<td></td>
+
+
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
+
+		<div class="modal fade" id="modalEliminarusuariopreguntadeconfirmacio"
+			tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5">Eliminar Usuario</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<label id="mensajeeliminar"></label> <input type="hidden"
+							id="hddideliminarusuario" value="0">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Salir</button>
+						<button type="button" class="btn btn-primary"
+							id="confirmareliminar">Eliminar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</body>
+</html>
